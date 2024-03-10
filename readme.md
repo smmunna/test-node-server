@@ -31,6 +31,7 @@
     npm install
   ```
   - Setup your Local MongoDB server or Online MongoDB server [Visit Here](https://account.mongodb.com/account/login)
+  - `.env` open this file, and configure it
   - Use the commad to run the server
   ```javascript
     npx tsc --w
