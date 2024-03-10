@@ -30,10 +30,14 @@
   ```javascript
     npm install
   ```
-   - Use the commad to run the server
+  - Setup your Local MongoDB server or Online MongoDB server [Visit Here](https://account.mongodb.com/account/login)
+  - Use the commad to run the server
   ```javascript
     npx tsc --w
   ```
   ```javascript
     npm start
   ```
+
+  #### Thank you
+  2024&copy; Developed by <a href="https://github.com/smmunna">smmunna</a>
