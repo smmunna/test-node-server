@@ -26,11 +26,15 @@
   ```javascript
     git clone https://github.com/smmunna/node-server-starter.git
   ```
+   - Goto this project directory `cd node-server-starter`
    - Intall the required packages in `package.json`
   ```javascript
     npm install
   ```
+  - Open `2 terminal` in vs code or in command prompt
   - Setup your Local MongoDB server or Online MongoDB server [Visit Here](https://account.mongodb.com/account/login)
+    - Create a database name `nextjs` or `anyother name`
+    - Create a table name `users` or `anyother name`
   - `.env` open this file, and configure it
   - Use the commad to run the server
   ```javascript
@@ -38,6 +42,10 @@
   ```
   ```javascript
     npm start
+  ```
+ - Remove the main authorization from github
+  ```javascript
+       git remote rm origin
   ```
 
   #### Thank you
