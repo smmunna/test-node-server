@@ -13,7 +13,13 @@ app.use((0, cors_1.default)());
 // Route handlings;
 app.use('/api/v1/users', user_route_1.userRoutes);
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.status(200).json({
+        success: true,
+        message: 'Welcome to Node.js Server',
+        author: 'Minhazul Abedin Munna',
+        github: 'https://github.com/smmunna',
+        linkedin: 'https://www.linkedin.com/in/minhazulabedinmunna/',
+    });
 });
 // Route Error
 app.all('*', (req, res) => {

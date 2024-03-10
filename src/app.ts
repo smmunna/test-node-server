@@ -13,7 +13,13 @@ app.use('/api/v1/users', userRoutes)
 
 
 app.get('/', (req: Request, res: Response) => {
-    res.send('Hello World!')
+    res.status(200).json({
+        success: true,
+        message: 'Welcome to Node.js Server',
+        author: 'Minhazul Abedin Munna',
+        github: 'https://github.com/smmunna',
+        linkedin: 'https://www.linkedin.com/in/minhazulabedinmunna/',
+    })
 })
 
 // Route Error
@@ -21,13 +27,12 @@ app.all('*', (req: Request, res: Response) => {
     res.status(404).json({
         status: 404,
         message: 'Not Found'
-    })   
+    })
 })
 
 // Global Error Handler
-app.use((error:any, req:Request, res:Response, next:NextFunction)=>{
-    if(error)
-    {
+app.use((error: any, req: Request, res: Response, next: NextFunction) => {
+    if (error) {
         res.status(500).send({
             success: false,
             message: error.message
