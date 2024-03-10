@@ -24,7 +24,7 @@
 
    - Clone this server
   ```javascript
-    git clone https://github.com/
+    git clone https://github.com/smmunna/node-server-starter.git
   ```
    - Intall the required packages in `package.json`
   ```javascript
@@ -32,7 +32,7 @@
   ```
    - Use the commad to run the server
   ```javascript
-    npx tsc --watch
+    npx tsc --w
   ```
   ```javascript
     npm start
