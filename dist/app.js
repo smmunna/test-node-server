@@ -10,6 +10,7 @@ const user_route_1 = require("./app/modules/user/user.route");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
+app.use('/uploads', express_1.default.static('uploads'));
 // Route handlings;
 app.use('/api/v1/users', user_route_1.userRoutes);
 app.get('/', (req, res) => {

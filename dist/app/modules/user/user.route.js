@@ -10,6 +10,9 @@ const router = express_1.default.Router();
 router.post('/', user_controller_1.userController.createUser);
 router.post('/login', user_controller_1.userController.signInUser);
 router.get('/', user_controller_1.userController.getUsers);
+// File Management Routes
+router.post('/upload', user_controller_1.userController.fileUpload);
+router.delete('/delete/:filename', user_controller_1.userController.deleteFileData);
 /**
  * MIDDLEWARE CONFIGURATION
  * --------------------------------

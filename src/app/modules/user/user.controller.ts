@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { UserService } from "./user.service";
 import jwt from "jsonwebtoken";
+import upload from "../../utils/fileManagement/upload";
+import deleteFile from "../../utils/fileManagement/deleteFile";
 
 // Create user
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -23,7 +25,6 @@ const getUsers = async (req: Request, res: Response, next: NextFunction) => {
         success: true,
     });
 }
-
 
 /**
  * JWT GENERATE TOKEN WHEN SIGN IN USER
@@ -55,9 +56,56 @@ const signInUser = async (req: Request, res: Response, next: NextFunction) => {
     });
 }
 
+
+// File Uploading
+const fileUpload = async (req: Request, res: Response) => {
+
+    try {
+        // Use the Multer middleware to handle the file upload
+        upload.single('photo')(req, res, (err: any) => {
+            if (err) {
+                // Handle Multer error (e.g., file size exceeds limit)
+                return res.status(400).send(err.message);
+            }
+
+            // Multer has processed the file, and it can be accessed in req.file
+            const uploadedFile = req.file;
+
+            // Respond with the uploaded file in the response
+            res.status(200).json({
+                message: 'Photo uploaded successfully',
+                file: uploadedFile,
+                nextUrl: `${req.protocol}://${req.get('host')}/` + uploadedFile?.path.replace(/\\/g, "/")
+            });
+        });
+    } catch (error) {
+        console.error('Error in userPhoto controller:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
+// File Deleting
+const deleteFileData = (req: Request, res: Response) => {
+    const filename = req.params.filename;
+    // console.log(filename);
+
+    // Call deleteFile function with filename and handle the result
+    deleteFile(filename, (error, message) => {
+        if (error) {
+            res.status(500).send({ message: error.message }); // Handle error
+        } else {
+            res.send({ message: message }); // File deletion successful
+        }
+    });
+
+
+}
+
 // These are accessible from different files.
 export const userController = {
     createUser,
     getUsers,
     signInUser,
+    fileUpload,
+    deleteFileData
 }

@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userController = void 0;
 const user_service_1 = require("./user.service");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const upload_1 = __importDefault(require("../../utils/fileManagement/upload"));
+const deleteFile_1 = __importDefault(require("../../utils/fileManagement/deleteFile"));
 // Create user
 const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -60,9 +62,49 @@ const signInUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         token: token
     });
 });
+// File Uploading
+const fileUpload = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        // Use the Multer middleware to handle the file upload
+        upload_1.default.single('photo')(req, res, (err) => {
+            if (err) {
+                // Handle Multer error (e.g., file size exceeds limit)
+                return res.status(400).send(err.message);
+            }
+            // Multer has processed the file, and it can be accessed in req.file
+            const uploadedFile = req.file;
+            // Respond with the uploaded file in the response
+            res.status(200).json({
+                message: 'Photo uploaded successfully',
+                file: uploadedFile,
+                nextUrl: `${req.protocol}://${req.get('host')}/` + (uploadedFile === null || uploadedFile === void 0 ? void 0 : uploadedFile.path.replace(/\\/g, "/"))
+            });
+        });
+    }
+    catch (error) {
+        console.error('Error in userPhoto controller:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+// File Deleting
+const deleteFileData = (req, res) => {
+    const filename = req.params.filename;
+    // console.log(filename);
+    // Call deleteFile function with filename and handle the result
+    (0, deleteFile_1.default)(filename, (error, message) => {
+        if (error) {
+            res.status(500).send({ message: error.message }); // Handle error
+        }
+        else {
+            res.send({ message: message }); // File deletion successful
+        }
+    });
+};
 // These are accessible from different files.
 exports.userController = {
     createUser,
     getUsers,
     signInUser,
+    fileUpload,
+    deleteFileData
 };
