@@ -11,6 +11,7 @@
    - "mongoose": "^8.2.1"
    - "nodemon": "^3.1.0"
    - "typescript": "^5.4.2"
+   - "multer": "^1.4.5-lts.1"
 
 ### Folder Structures
    - `dist` > compiled the src folder all files
