@@ -1,5 +1,22 @@
 ## Node.js Server Starter Template
 
+### Installation Process
+1. Run the following command
+```javascript
+npx nodeexpressjs
+```
+2. Goto this project directory & open `two` terminal
+```javascript
+npx tsc --w
+```
+```javascript
+npm start
+```
+3. Now project will run in following port
+```javascript   
+http://localhost:5000
+```
+
 ### New Features
    - Server created with Node, Express, TypeScript (JS)
 
@@ -21,33 +38,6 @@
    - `server.ts`> server configuration here
    - `utils.ts`> contains important functions
 
-### How to setup the server
-
-   - Clone this server
-  ```javascript
-    git clone https://github.com/smmunna/node-server-starter.git
-  ```
-   - Goto this project directory `cd node-server-starter`
-   - Intall the required packages in `package.json`
-  ```javascript
-    npm install
-  ```
-  - Open `2 terminal` in vs code or in command prompt
-  - Setup your Local MongoDB server or Online MongoDB server [Visit Here](https://account.mongodb.com/account/login)
-    - Create a database name `nextjs` or `anyother name`
-    - Create a table name `users` or `anyother name`
-  - `.env` open this file, and configure it
-  - Use the commad to run the server
-  ```javascript
-    npx tsc --w
-  ```
-  ```javascript
-    npm start
-  ```
- - Remove the main authorization from github
-  ```javascript
-       git remote rm origin
-  ```
 
   #### Thank you
   2024&copy; Developed by <a href="https://github.com/smmunna">smmunna</a>
