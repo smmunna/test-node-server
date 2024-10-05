@@ -2,6 +2,9 @@ import { NextFunction, Request, Response } from "express";
 import { UserService } from "./user.service";
 import jwt from "jsonwebtoken";
 import upload from "../../utils/fileManagement/upload";
+// @ts-ignore
+import imgbbUploader from 'imgbb-uploader';
+import path from 'path'
 import deleteFile from "../../utils/fileManagement/deleteFile";
 
 // Create user
@@ -60,9 +63,37 @@ const signInUser = async (req: Request, res: Response, next: NextFunction) => {
 // File Uploading
 const fileUpload = async (req: Request, res: Response) => {
 
+    //============== Upload into local server folder ====================
+    // try {
+    //     // Use the Multer middleware to handle the file upload
+    //     upload.single('photo')(req, res, (err: any) => {
+    //         if (err) {
+    //             // Handle Multer error (e.g., file size exceeds limit)
+    //             return res.status(400).send(err.message);
+    //         }
+
+    //         // Multer has processed the file, and it can be accessed in req.file
+    //         const uploadedFile = req.file;
+
+    //         // Respond with the uploaded file in the response
+    //         res.status(200).json({
+    //             message: 'Photo uploaded successfully',
+    //             file: uploadedFile,
+    //             nextUrl: `${req.protocol}://${req.get('host')}/` + uploadedFile?.path.replace(/\\/g, "/")
+    //         });
+    //     });
+    // } catch (error) {
+    //     console.error('Error in userPhoto controller:', error);
+    //     res.status(500).send('Internal Server Error');
+    // }
+
+    //==============End of upload into Local server folder===============
+
+
+    //==============Upload into ImgBB===================
     try {
         // Use the Multer middleware to handle the file upload
-        upload.single('photo')(req, res, (err: any) => {
+        upload.single('photo')(req, res, async (err: any) => {
             if (err) {
                 // Handle Multer error (e.g., file size exceeds limit)
                 return res.status(400).send(err.message);
@@ -71,17 +102,31 @@ const fileUpload = async (req: Request, res: Response) => {
             // Multer has processed the file, and it can be accessed in req.file
             const uploadedFile = req.file;
 
-            // Respond with the uploaded file in the response
+            if (!uploadedFile) {
+                return res.status(400).json({ message: 'No file uploaded' });
+            }
+
+            // Convert buffer to a file path and upload to ImgBB
+            const imgBBResponse = await imgbbUploader({
+                apiKey: process.env.IMGBB_API_KEY, //IMGBB API Key from ENV file
+                name: path.parse(uploadedFile.originalname).name, // Name for the image
+                base64string: uploadedFile.buffer.toString('base64') // Convert file buffer to base64
+            });
+
+            // Respond with ImgBB response
             res.status(200).json({
-                message: 'Photo uploaded successfully',
-                file: uploadedFile,
-                nextUrl: `${req.protocol}://${req.get('host')}/` + uploadedFile?.path.replace(/\\/g, "/")
+                message: 'Photo uploaded successfully to ImgBB',
+                imgbbUrl: imgBBResponse.url, // Direct URL to the image
+                deleteUrl: imgBBResponse.delete_url // URL to delete the image from ImgBB
             });
         });
     } catch (error) {
-        console.error('Error in userPhoto controller:', error);
+        console.error('Error in fileUpload controller:', error);
         res.status(500).send('Internal Server Error');
     }
+
+    //==============END OF UPLOADING INTO IMGBB===================
+
 }
 
 // File Deleting
@@ -100,6 +145,7 @@ const deleteFileData = (req: Request, res: Response) => {
 
 
 }
+
 
 // These are accessible from different files.
 export const userController = {

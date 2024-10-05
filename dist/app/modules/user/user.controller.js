@@ -16,6 +16,9 @@ exports.userController = void 0;
 const user_service_1 = require("./user.service");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const upload_1 = __importDefault(require("../../utils/fileManagement/upload"));
+// @ts-ignore
+const imgbb_uploader_1 = __importDefault(require("imgbb-uploader"));
+const path_1 = __importDefault(require("path"));
 const deleteFile_1 = __importDefault(require("../../utils/fileManagement/deleteFile"));
 // Create user
 const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -64,27 +67,60 @@ const signInUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 });
 // File Uploading
 const fileUpload = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    //============== Upload into local server folder ====================
+    // try {
+    //     // Use the Multer middleware to handle the file upload
+    //     upload.single('photo')(req, res, (err: any) => {
+    //         if (err) {
+    //             // Handle Multer error (e.g., file size exceeds limit)
+    //             return res.status(400).send(err.message);
+    //         }
+    //         // Multer has processed the file, and it can be accessed in req.file
+    //         const uploadedFile = req.file;
+    //         // Respond with the uploaded file in the response
+    //         res.status(200).json({
+    //             message: 'Photo uploaded successfully',
+    //             file: uploadedFile,
+    //             nextUrl: `${req.protocol}://${req.get('host')}/` + uploadedFile?.path.replace(/\\/g, "/")
+    //         });
+    //     });
+    // } catch (error) {
+    //     console.error('Error in userPhoto controller:', error);
+    //     res.status(500).send('Internal Server Error');
+    // }
+    //==============End of upload into Local server folder===============
+    //==============Upload into ImgBB===================
     try {
         // Use the Multer middleware to handle the file upload
-        upload_1.default.single('photo')(req, res, (err) => {
+        upload_1.default.single('photo')(req, res, (err) => __awaiter(void 0, void 0, void 0, function* () {
             if (err) {
                 // Handle Multer error (e.g., file size exceeds limit)
                 return res.status(400).send(err.message);
             }
             // Multer has processed the file, and it can be accessed in req.file
             const uploadedFile = req.file;
-            // Respond with the uploaded file in the response
-            res.status(200).json({
-                message: 'Photo uploaded successfully',
-                file: uploadedFile,
-                nextUrl: `${req.protocol}://${req.get('host')}/` + (uploadedFile === null || uploadedFile === void 0 ? void 0 : uploadedFile.path.replace(/\\/g, "/"))
+            if (!uploadedFile) {
+                return res.status(400).json({ message: 'No file uploaded' });
+            }
+            // Convert buffer to a file path and upload to ImgBB
+            const imgBBResponse = yield (0, imgbb_uploader_1.default)({
+                apiKey: process.env.IMGBB_API_KEY, //IMGBB API Key from ENV file
+                name: path_1.default.parse(uploadedFile.originalname).name, // Name for the image
+                base64string: uploadedFile.buffer.toString('base64') // Convert file buffer to base64
             });
-        });
+            // Respond with ImgBB response
+            res.status(200).json({
+                message: 'Photo uploaded successfully to ImgBB',
+                imgbbUrl: imgBBResponse.url, // Direct URL to the image
+                deleteUrl: imgBBResponse.delete_url // URL to delete the image from ImgBB
+            });
+        }));
     }
     catch (error) {
-        console.error('Error in userPhoto controller:', error);
+        console.error('Error in fileUpload controller:', error);
         res.status(500).send('Internal Server Error');
     }
+    //==============END OF UPLOADING INTO IMGBB===================
 });
 // File Deleting
 const deleteFileData = (req, res) => {
