@@ -1,6 +1,7 @@
 import express from "express";
 import { userController } from "./user.controller";
 import verifyToken from "../../middleware/verifyToken.middleware";
+import { checkUserRoleAndRateLimit } from "../../middleware/apiRateLimit.middleware";
 
 const router = express.Router()
 

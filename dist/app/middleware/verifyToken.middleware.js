@@ -15,13 +15,21 @@ const verifyToken = (req, res, next) => {
             else {
                 // If token is valid, you can access the decoded payload here
                 const userInfo = decoded;
+                // Adding user email to the request object
                 // console.log(userInfo)
+                // Send the email to Next Middleware    
+                // req.email = userInfo.user; //full user object information
+                req.email = userInfo.user.email; // just user email
                 next();
             }
         });
     }
     else {
-        return res.status(401).json({ message: 'Authorization header missing or invalid' });
+        return res.status(401).json({
+            success: false,
+            info: 'Authorization header missing or invalid',
+            message: 'Unauthorized user'
+        });
     }
 };
 exports.default = verifyToken;

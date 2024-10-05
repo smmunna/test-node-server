@@ -20,6 +20,7 @@ const upload_1 = __importDefault(require("../../utils/fileManagement/upload"));
 const imgbb_uploader_1 = __importDefault(require("imgbb-uploader"));
 const path_1 = __importDefault(require("path"));
 const deleteFile_1 = __importDefault(require("../../utils/fileManagement/deleteFile"));
+const user_model_1 = __importDefault(require("./user.model"));
 // Create user
 const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -49,11 +50,16 @@ const getUsers = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
 const signInUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const email = req.body.email;
     // const password = req.body.password;
-    const user = email;
+    // const user = email
     /**
      * You can check the user email and password Here ;
      * If successful user, then sign token and login successful else Unauthorized user,Invalid Login
      * */
+    // Check if the email exists in the database
+    const user = yield user_model_1.default.findOne({ email });
+    if (!user) {
+        return res.status(401).json({ message: 'Invalid email or password' });
+    }
     // Sign in jwt token
     const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
     const token = jsonwebtoken_1.default.sign({ user }, `${accessTokenSecret}`, {

@@ -6,6 +6,7 @@ import upload from "../../utils/fileManagement/upload";
 import imgbbUploader from 'imgbb-uploader';
 import path from 'path'
 import deleteFile from "../../utils/fileManagement/deleteFile";
+import userModel from "./user.model";
 
 // Create user
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -39,12 +40,19 @@ const signInUser = async (req: Request, res: Response, next: NextFunction) => {
     const email = req.body.email;
     // const password = req.body.password;
 
-    const user = email
+    // const user = email
 
     /**
      * You can check the user email and password Here ;
      * If successful user, then sign token and login successful else Unauthorized user,Invalid Login
      * */
+
+    // Check if the email exists in the database
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+        return res.status(401).json({ message: 'Invalid email or password' });
+    }
 
     // Sign in jwt token
     const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
