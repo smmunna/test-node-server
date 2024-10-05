@@ -15,6 +15,8 @@ npx nodeexpressjs
       "role": "admin"
    }
    ```
+  - Then update `.env` file `DATABASE_URL`, Default name given `nextjs` change it whatever you want.
+  - You can add local and also clould for production level.
 4. Goto this project directory & open `two` terminal
 ```javascript
 npx tsc --w
