@@ -5,12 +5,8 @@
 ```javascript
 npx nodeexpressjs
 ```
-2. Install all packages
-   ```javascript
-   npm install
-   ```
-3. Create a new database in MongoDB Compass or MongoDB Cloud Storage
-4. Then create a new table name `users`, contain following fields.
+2. Create a new database in MongoDB Compass or MongoDB Cloud Storage
+3. Then create a new table name `users`, contain following fields.
    ```javascript
    {
       "username": "Minhazul Abedin Munna",
@@ -19,14 +15,14 @@ npx nodeexpressjs
       "role": "admin"
    }
    ```
-5. Goto this project directory & open `two` terminal
+4. Goto this project directory & open `two` terminal
 ```javascript
 npx tsc --w
 ```
 ```javascript
 npm start
 ```
-1. Now project will run in following port
+5. Now project will run in following port
 ```javascript   
 http://localhost:5000
 ```
@@ -44,7 +40,7 @@ http://localhost:5000
    - "typescript": "^5.4.2"
    - "multer": "^1.4.5-lts.1"
    - "sslcommerze"
-   - "paypal"
+   - "paypal": maybe not supported
 
 ### Folder Structures
    - `dist` > compiled the src folder all files
