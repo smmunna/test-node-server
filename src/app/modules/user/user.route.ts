@@ -1,6 +1,6 @@
 import express from "express";
 import { userController } from "./user.controller";
-import verifyToken from "../../middleware/verifyToken.middleware";
+import verifyToken from "../../middleware/verifyToken.middleware"; 
 import { checkUserRoleAndRateLimit } from "../../middleware/apiRateLimit.middleware";
 
 const router = express.Router()
@@ -17,6 +17,6 @@ router.delete('/delete/:filename', userController.deleteFileData)
  * --------------------------------
  * */
 
-// router.get('/', verifyToken, userController.getUsers)
+// router.get('/', verifyToken, checkUserRoleAndRateLimit, userController.getUsers)
 
 export const userRoutes = router;

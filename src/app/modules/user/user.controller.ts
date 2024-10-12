@@ -7,17 +7,14 @@ import imgbbUploader from 'imgbb-uploader';
 import path from 'path'
 import deleteFile from "../../utils/fileManagement/deleteFile";
 import userModel from "./user.model";
+import sendApiResponse from "../../lib/ApiResponse/sendApiResponse";
 
 // Create user
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const user = req.body;
         const result = await UserService.createUserToDB(user)
-        res.status(200).json({
-            success: true,
-            message: 'User created successfully',
-            data: result
-        })
+        sendApiResponse(res, 200, true, 'User created successfully', result)
     } catch (error) {
         next(error);
     }

@@ -1,3 +1,4 @@
+// Creating user interface with their fields and data type
 interface User {
     username: string;
     email: string;

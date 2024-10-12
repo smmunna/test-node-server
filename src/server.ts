@@ -1,3 +1,4 @@
+//CREATE CONNECTION WITH MONGODB DATABASE
 import mongoose from 'mongoose';
 import app from './app'
 

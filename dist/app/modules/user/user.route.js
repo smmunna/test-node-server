@@ -17,5 +17,5 @@ router.delete('/delete/:filename', user_controller_1.userController.deleteFileDa
  * MIDDLEWARE CONFIGURATION
  * --------------------------------
  * */
-// router.get('/', verifyToken, userController.getUsers)
+// router.get('/', verifyToken, checkUserRoleAndRateLimit, userController.getUsers)
 exports.userRoutes = router;

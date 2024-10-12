@@ -21,16 +21,13 @@ const imgbb_uploader_1 = __importDefault(require("imgbb-uploader"));
 const path_1 = __importDefault(require("path"));
 const deleteFile_1 = __importDefault(require("../../utils/fileManagement/deleteFile"));
 const user_model_1 = __importDefault(require("./user.model"));
+const sendApiResponse_1 = __importDefault(require("../../lib/ApiResponse/sendApiResponse"));
 // Create user
 const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = req.body;
         const result = yield user_service_1.UserService.createUserToDB(user);
-        res.status(200).json({
-            success: true,
-            message: 'User created successfully',
-            data: result
-        });
+        (0, sendApiResponse_1.default)(res, 200, true, 'User created successfully', result);
     }
     catch (error) {
         next(error);
