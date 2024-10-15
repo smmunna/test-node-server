@@ -23,6 +23,6 @@ router.delete('/delete/:filename', userController.deleteFileData)
  * --------------------------------
  * */
 
-router.get('/', verifyToken, isUser, userController.getUsers)
+router.get('/', verifyToken, isAdmin, checkUserRoleAndRateLimit, userController.getUsers)
 
 export const userRoutes = router;

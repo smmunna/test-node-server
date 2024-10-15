@@ -15,7 +15,11 @@ const checkUserRole = async (req: Request, res: Response, next: NextFunction, ro
     }
 };
 
-// Middleware for admin role
+/**
+ * @description
+ * Before using this middleware, you need to add one middlewares verifyToken.
+ * 1. isAdmin() function to check if the user is a admin or not
+ * */
 export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
     checkUserRole(req, res, next, 'admin');
 };

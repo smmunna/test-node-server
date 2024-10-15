@@ -27,7 +27,11 @@ const checkUserRole = (req, res, next, role) => __awaiter(void 0, void 0, void 0
         (0, sendApiResponse_1.default)(res, 403, false, `User role not found as ${role}`);
     }
 });
-// Middleware for admin role
+/**
+ * @description
+ * Before using this middleware, you need to add one middlewares verifyToken.
+ * 1. isAdmin() function to check if the user is a admin or not
+ * */
 const isAdmin = (req, res, next) => {
     checkUserRole(req, res, next, 'admin');
 };
