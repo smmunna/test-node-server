@@ -3,15 +3,19 @@ import 'dotenv/config'
 import cors from 'cors'
 // Import your routes here
 import { userRoutes } from './app/modules/user/user.route'
+import helmet from 'helmet'
 
 const app = express()
 
 app.use(express.json())
 app.use(cors())
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use('/uploads', express.static('uploads'))
 
 // Route handlings;
 app.use('/api/v1/users', userRoutes)
+
+// SSL Commerze or any redirect routes will be Here, from controller with functions
 
 
 app.get('/', (req: Request, res: Response) => {
