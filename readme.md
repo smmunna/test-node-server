@@ -7,8 +7,8 @@ npx nodeexpressjs
 ```
 2. Create a new database in MongoDB Compass or MongoDB Cloud Storage
 3. Then update `.env` file `DATABASE_URL`, Default name given `nextjs` change it whatever you want.
-  - You can add local and also cloud for production level.
-  - Then create a new table name `users`, contain following fields.
+4. You can add local and also cloud for production level.
+5. Then create a new table name `users`, contain following fields.
    ```javascript
    {
       "username": "Minhazul Abedin Munna",
@@ -17,14 +17,14 @@ npx nodeexpressjs
       "role": "admin"
    }
    ```
-4. Goto this project directory & open `two` terminal
+6. Goto this project directory & open `two` terminal
 ```javascript
 npx tsc --w
 ```
 ```javascript
 npm start
 ```
-5. Now project will run in following port
+7. Now project will run in following port
 ```javascript   
 http://localhost:5000
 ```
