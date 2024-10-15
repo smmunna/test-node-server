@@ -28,6 +28,13 @@ npm start
 ```javascript   
 http://localhost:5000
 ```
+**API Endpoints**
+```javascript   
+http://localhost:5000/api/v1/
+```
+```javascript   
+http://localhost:5000/api/v1/users
+```
 
 ### New Features
    - Server created with Node, Express, TypeScript (JS)
