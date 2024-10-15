@@ -24,6 +24,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
 const getUsers = async (req: Request, res: Response, next: NextFunction) => {
     res.status(200).json({
         success: true,
+        data:"User gets successfully"
     });
 }
 

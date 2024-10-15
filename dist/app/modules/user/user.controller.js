@@ -37,6 +37,7 @@ const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 const getUsers = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     res.status(200).json({
         success: true,
+        data: "User gets successfully"
     });
 });
 /**
