@@ -9,7 +9,12 @@ const app = express()
 
 app.use(express.json())
 app.use(cors())
+
+// Helmet for Security purpose
+app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+
+// Handling uploading the files to server
 app.use('/uploads', express.static('uploads'))
 
 // Route handlings;
