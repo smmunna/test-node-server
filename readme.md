@@ -11,12 +11,27 @@ npx nodeexpressjs
 5. Then create a new table name `users`, contain following fields.
    ```javascript
    {
+      "username": "",
+      "email": "",
+      "password": "",
+      "role": ""
+   }
+   ```
+   *You can open `postman` and paste this api endpoint into the url section*
+   ```javascript   
+      http://localhost:5000/api/v1/users
+   ```
+   After that select `body` and also `json` as format and paste that object, used `bcrypt` to encrypt password
+    ```javascript
+   {
       "username": "Minhazul Abedin Munna",
       "email": "munna@gmail.com",
       "password": "1234",
       "role": "admin"
    }
    ```
+   Now select `POST` method and hit `send` button, It will successfully create a user.
+   
 6. Goto this project directory & open `two` terminal
 ```javascript
 npx tsc --w
