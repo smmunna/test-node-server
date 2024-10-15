@@ -45,6 +45,7 @@ http://localhost:5000
    - "paypal": maybe not supported
    - "bcrypt"
    - "nodemailer"
+   - "helmet"
 
 ### Folder Structures
    - `dist` > compiled the src folder all files

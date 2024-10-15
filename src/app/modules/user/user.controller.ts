@@ -22,10 +22,8 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
 
 // Get users
 const getUsers = async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({
-        success: true,
-        data:"User gets successfully"
-    });
+    const result = await UserService.getAllUsers();
+    sendApiResponse(res, 200, true, 'Users fetched successfully', result)
 }
 
 /**

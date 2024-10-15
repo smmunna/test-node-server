@@ -14,10 +14,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const user_model_1 = __importDefault(require("./user.model"));
+// Creating new user
 const createUserToDB = (user) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_model_1.default.create(user);
     return result;
 });
+// Getting all users
+const getAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
+    const users = yield user_model_1.default.find({}, { password: 0, role: 0 }); //not showing password and role field
+    return users;
+});
 exports.UserService = {
     createUserToDB,
+    getAllUsers
 };

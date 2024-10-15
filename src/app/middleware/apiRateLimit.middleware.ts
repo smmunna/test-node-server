@@ -11,7 +11,7 @@ import userModel from '../modules/user/user.model';
   windowMs: 24 * 60 * 60 * 1000, // 24 hour (1 day) window
   windowMs: 5 * 24 * 60 * 60 * 1000, // 5 day window
 
-*/ 
+*/
 
 // Admin Limiter
 const adminLimiter = rateLimit({

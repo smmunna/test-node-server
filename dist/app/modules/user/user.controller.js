@@ -35,10 +35,8 @@ const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 });
 // Get users
 const getUsers = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    res.status(200).json({
-        success: true,
-        data: "User gets successfully"
-    });
+    const result = yield user_service_1.UserService.getAllUsers();
+    (0, sendApiResponse_1.default)(res, 200, true, 'Users fetched successfully', result);
 });
 /**
  * JWT GENERATE TOKEN WHEN SIGN IN USER
