@@ -139,51 +139,52 @@ const fileUpload = async (req: Request, res: Response, next: NextFunction) => {
 
 
     //==============Upload into Cloudinary===================
-    try {
-        // Configure Cloudinary
-        cloudinary.v2.config({
-            cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-            api_key: process.env.CLOUDINARY_API_KEY,
-            api_secret: process.env.CLOUDINARY_API_SECRET,
-        });
 
-        // Use Multer middleware to handle the file upload
-        cloudStore.single('photo')(req, res, async (err: any) => {
-            if (err) {
-                // Handle Multer error (e.g., file size exceeds limit)
-                return res.status(400).send(err.message);
-            }
+    // try {
+    //     // Configure Cloudinary
+    //     cloudinary.v2.config({
+    //         cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    //         api_key: process.env.CLOUDINARY_API_KEY,
+    //         api_secret: process.env.CLOUDINARY_API_SECRET,
+    //     });
 
-            // Multer has processed the file, and it can be accessed in req.file
-            const uploadedFile = req.file;
+    //     // Use Multer middleware to handle the file upload
+    //     cloudStore.single('photo')(req, res, async (err: any) => {
+    //         if (err) {
+    //             // Handle Multer error (e.g., file size exceeds limit)
+    //             return res.status(400).send(err.message);
+    //         }
 
-            if (!uploadedFile) {
-                return res.status(400).json({ message: 'No file uploaded' });
-            }
+    //         // Multer has processed the file, and it can be accessed in req.file
+    //         const uploadedFile = req.file;
 
-            // Upload the image to Cloudinary
-            cloudinary.v2.uploader.upload_stream(
-                { resource_type: 'image' },
-                (error, result) => {
-                    if (error) {
-                        console.error('Error uploading to Cloudinary:', error);
-                        return res.status(500).json({ message: 'Error uploading to Cloudinary', error });
-                    }
+    //         if (!uploadedFile) {
+    //             return res.status(400).json({ message: 'No file uploaded' });
+    //         }
 
-                    // Respond with Cloudinary response
-                    res.status(200).json({
-                        message: 'Photo uploaded successfully to Cloudinary',
-                        // data: result,
-                        imgUrl: result?.secure_url, // Direct URL to the image
-                        publicId: result?.public_id, // Public ID of the image in Cloudinary
-                    });
-                }
-            ).end(uploadedFile.buffer); // Send the file buffer to Cloudinary
-        });
-    } catch (error) {
-        console.error('Error in fileUpload controller:', error);
-        res.status(500).send('Internal Server Error');
-    }
+    //         // Upload the image to Cloudinary
+    //         cloudinary.v2.uploader.upload_stream(
+    //             { resource_type: 'image' },
+    //             (error, result) => {
+    //                 if (error) {
+    //                     console.error('Error uploading to Cloudinary:', error);
+    //                     return res.status(500).json({ message: 'Error uploading to Cloudinary', error });
+    //                 }
+
+    //                 // Respond with Cloudinary response
+    //                 res.status(200).json({
+    //                     message: 'Photo uploaded successfully to Cloudinary',
+    //                     // data: result,
+    //                     imgUrl: result?.secure_url, // Direct URL to the image
+    //                     publicId: result?.public_id, // Public ID of the image in Cloudinary
+    //                 });
+    //             }
+    //         ).end(uploadedFile.buffer); // Send the file buffer to Cloudinary
+    //     });
+    // } catch (error) {
+    //     console.error('Error in fileUpload controller:', error);
+    //     res.status(500).send('Internal Server Error');
+    // }
 
     //==============END OF UPLOADING INTO CLOUDINARY===================
 }
