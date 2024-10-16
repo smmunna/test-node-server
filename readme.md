@@ -68,6 +68,9 @@ http://localhost:5000/api/v1/users
    - "bcrypt"
    - "nodemailer"
    - "helmet"
+   - "axios"
+   - "imgbb"
+   - "cloudinary"
 
 ### Folder Structures
    - `dist` > compiled the src folder all files
