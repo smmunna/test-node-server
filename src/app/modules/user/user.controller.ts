@@ -1,13 +1,16 @@
 import { NextFunction, Request, Response } from "express";
 import { UserService } from "./user.service";
 import jwt from "jsonwebtoken";
-import upload from "../../utils/fileManagement/upload";
 // @ts-ignore
 import imgbbUploader from 'imgbb-uploader';
 import path from 'path'
 import deleteFile from "../../utils/fileManagement/deleteFile";
 import userModel from "./user.model";
 import sendApiResponse from "../../lib/ApiResponse/sendApiResponse";
+import cloudStore from "../../utils/fileManagement/cloudStore";
+import deleteFastFile from "../../lib/file/deleteFastFile";
+import parsedURL from "../../lib/file/photoPath";
+import { photoUpload } from "../../utils/fileManagement/upload.config";
 
 // Create user
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -65,39 +68,39 @@ const signInUser = async (req: Request, res: Response, next: NextFunction) => {
 
 
 // File Uploading
-const fileUpload = async (req: Request, res: Response) => {
+const fileUpload = async (req: Request, res: Response, next: NextFunction) => {
 
-    //============== Upload into local server folder ====================
+    // UPLOAD FILES LOCALLY
     // try {
-    //     // Use the Multer middleware to handle the file upload
-    //     upload.single('photo')(req, res, (err: any) => {
+    //     // Handle photo upload
+    //     photoUpload.single('photo')(req, res, async (err) => {
     //         if (err) {
-    //             // Handle Multer error (e.g., file size exceeds limit)
-    //             return res.status(400).send(err.message);
+    //             console.error('Error uploading photo:', err);
+    //             return next(err);
     //         }
 
-    //         // Multer has processed the file, and it can be accessed in req.file
-    //         const uploadedFile = req.file;
+    //         const photoPath = req.file?.path;
+    //         const photoURL = `${req.protocol}://${req.get('host')}/` + photoPath?.replace(/\\/g, "/"); //Upload file as URL: http://localhost:5000/uploads/user-1728138253070.png
+    //         if (photoURL) {
+    //             sendApiResponse(res, 200, true, 'Photo Uploaded Successfully', photoURL)
+    //         }
+    //         else {
+    //             sendApiResponse(res, 400, false, 'Error Uploading Photo')
+    //         }
 
-    //         // Respond with the uploaded file in the response
-    //         res.status(200).json({
-    //             message: 'Photo uploaded successfully',
-    //             file: uploadedFile,
-    //             nextUrl: `${req.protocol}://${req.get('host')}/` + uploadedFile?.path.replace(/\\/g, "/")
-    //         });
-    //     });
-    // } catch (error) {
-    //     console.error('Error in userPhoto controller:', error);
-    //     res.status(500).send('Internal Server Error');
+    //     })
+    // }
+    // catch (error) {
+    //     next(error)
     // }
 
-    //==============End of upload into Local server folder===============
+    // END OF UPLOAD FILES LOCALLY
 
 
     //==============Upload into ImgBB===================
     try {
         // Use the Multer middleware to handle the file upload
-        upload.single('photo')(req, res, async (err: any) => {
+        cloudStore.single('photo')(req, res, async (err: any) => {
             if (err) {
                 // Handle Multer error (e.g., file size exceeds limit)
                 return res.status(400).send(err.message);
@@ -135,19 +138,18 @@ const fileUpload = async (req: Request, res: Response) => {
 
 // File Deleting
 const deleteFileData = (req: Request, res: Response) => {
-    const filename = req.params.filename;
-    // console.log(filename);
 
-    // Call deleteFile function with filename and handle the result
-    deleteFile(filename, (error, message) => {
-        if (error) {
-            res.status(500).send({ message: error.message }); // Handle error
-        } else {
-            res.send({ message: message }); // File deletion successful
-        }
-    });
+    // When you upload a file into the database , that url will be here
 
-
+    const path = 'http://localhost:5000/uploads/user-1728138253071.png'
+    const urlconversion = parsedURL(path)
+    if (urlconversion) {
+        deleteFastFile(urlconversion)
+        sendApiResponse(res, 200, true, 'Deleted file successfully')
+    }
+    else {
+        console.log('Not Deleted, Try again later')
+    }
 }
 
 

@@ -11,7 +11,7 @@ router.post('/login', userController.signInUser)
 router.get('/', userController.getUsers)
 // File Management Routes
 router.post('/upload', userController.fileUpload)
-router.delete('/delete/:filename', userController.deleteFileData)
+router.delete('/deletefile', userController.deleteFileData)
 
 // Payment Gateway Routes
 

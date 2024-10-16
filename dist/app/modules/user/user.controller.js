@@ -15,13 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userController = void 0;
 const user_service_1 = require("./user.service");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const upload_1 = __importDefault(require("../../utils/fileManagement/upload"));
 // @ts-ignore
 const imgbb_uploader_1 = __importDefault(require("imgbb-uploader"));
 const path_1 = __importDefault(require("path"));
-const deleteFile_1 = __importDefault(require("../../utils/fileManagement/deleteFile"));
 const user_model_1 = __importDefault(require("./user.model"));
 const sendApiResponse_1 = __importDefault(require("../../lib/ApiResponse/sendApiResponse"));
+const cloudStore_1 = __importDefault(require("../../utils/fileManagement/cloudStore"));
+const deleteFastFile_1 = __importDefault(require("../../lib/file/deleteFastFile"));
+const photoPath_1 = __importDefault(require("../../lib/file/photoPath"));
 // Create user
 const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -68,33 +69,33 @@ const signInUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     });
 });
 // File Uploading
-const fileUpload = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    //============== Upload into local server folder ====================
+const fileUpload = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    // UPLOAD FILES LOCALLY
     // try {
-    //     // Use the Multer middleware to handle the file upload
-    //     upload.single('photo')(req, res, (err: any) => {
+    //     // Handle photo upload
+    //     photoUpload.single('photo')(req, res, async (err) => {
     //         if (err) {
-    //             // Handle Multer error (e.g., file size exceeds limit)
-    //             return res.status(400).send(err.message);
+    //             console.error('Error uploading photo:', err);
+    //             return next(err);
     //         }
-    //         // Multer has processed the file, and it can be accessed in req.file
-    //         const uploadedFile = req.file;
-    //         // Respond with the uploaded file in the response
-    //         res.status(200).json({
-    //             message: 'Photo uploaded successfully',
-    //             file: uploadedFile,
-    //             nextUrl: `${req.protocol}://${req.get('host')}/` + uploadedFile?.path.replace(/\\/g, "/")
-    //         });
-    //     });
-    // } catch (error) {
-    //     console.error('Error in userPhoto controller:', error);
-    //     res.status(500).send('Internal Server Error');
+    //         const photoPath = req.file?.path;
+    //         const photoURL = `${req.protocol}://${req.get('host')}/` + photoPath?.replace(/\\/g, "/"); //Upload file as URL: http://localhost:5000/uploads/user-1728138253070.png
+    //         if (photoURL) {
+    //             sendApiResponse(res, 200, true, 'Photo Uploaded Successfully', photoURL)
+    //         }
+    //         else {
+    //             sendApiResponse(res, 400, false, 'Error Uploading Photo')
+    //         }
+    //     })
     // }
-    //==============End of upload into Local server folder===============
+    // catch (error) {
+    //     next(error)
+    // }
+    // END OF UPLOAD FILES LOCALLY
     //==============Upload into ImgBB===================
     try {
         // Use the Multer middleware to handle the file upload
-        upload_1.default.single('photo')(req, res, (err) => __awaiter(void 0, void 0, void 0, function* () {
+        cloudStore_1.default.single('photo')(req, res, (err) => __awaiter(void 0, void 0, void 0, function* () {
             if (err) {
                 // Handle Multer error (e.g., file size exceeds limit)
                 return res.status(400).send(err.message);
@@ -126,17 +127,16 @@ const fileUpload = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 // File Deleting
 const deleteFileData = (req, res) => {
-    const filename = req.params.filename;
-    // console.log(filename);
-    // Call deleteFile function with filename and handle the result
-    (0, deleteFile_1.default)(filename, (error, message) => {
-        if (error) {
-            res.status(500).send({ message: error.message }); // Handle error
-        }
-        else {
-            res.send({ message: message }); // File deletion successful
-        }
-    });
+    // When you upload a file into the database , that url will be here
+    const path = 'http://localhost:5000/uploads/user-1728138253071.png';
+    const urlconversion = (0, photoPath_1.default)(path);
+    if (urlconversion) {
+        (0, deleteFastFile_1.default)(urlconversion);
+        (0, sendApiResponse_1.default)(res, 200, true, 'Deleted file successfully');
+    }
+    else {
+        console.log('Not Deleted, Try again later');
+    }
 };
 // These are accessible from different files.
 exports.userController = {

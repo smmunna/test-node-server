@@ -12,7 +12,7 @@ router.post('/login', user_controller_1.userController.signInUser);
 router.get('/', user_controller_1.userController.getUsers);
 // File Management Routes
 router.post('/upload', user_controller_1.userController.fileUpload);
-router.delete('/delete/:filename', user_controller_1.userController.deleteFileData);
+router.delete('/deletefile', user_controller_1.userController.deleteFileData);
 // Payment Gateway Routes
 // Redirect URL will be in app.ts file, Here redirect URL will not work
 /**

@@ -12,10 +12,9 @@ const helmet_1 = __importDefault(require("helmet"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
-// Helmet for Security purpose
+// Helmet for Security purpose, hiding the 'Express' server name from Header
 app.use((0, helmet_1.default)());
 app.use(helmet_1.default.crossOriginResourcePolicy({ policy: "cross-origin" }));
-// app.use(helmet({ crossOriginResourcePolicy: { policy: "same-site" } }));
 // Handling uploading the files to server
 app.use('/uploads', express_1.default.static('uploads'));
 // Route handlings;
