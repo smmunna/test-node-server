@@ -22,7 +22,7 @@ const user_model_1 = __importDefault(require("./user.model"));
 const sendApiResponse_1 = __importDefault(require("../../lib/ApiResponse/sendApiResponse"));
 const cloudStore_1 = __importDefault(require("../../utils/fileManagement/cloudStore"));
 const deleteFastFile_1 = __importDefault(require("../../lib/file/deleteFastFile"));
-const photoPath_1 = __importDefault(require("../../lib/file/photoPath"));
+const parsedUrl_1 = __importDefault(require("../../lib/file/parsedUrl"));
 // Create user
 const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -70,7 +70,7 @@ const signInUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 });
 // File Uploading
 const fileUpload = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    // UPLOAD FILES LOCALLY
+    // ========UPLOAD FILES LOCALLY=========
     // try {
     //     // Handle photo upload
     //     photoUpload.single('photo')(req, res, async (err) => {
@@ -91,7 +91,7 @@ const fileUpload = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     // catch (error) {
     //     next(error)
     // }
-    // END OF UPLOAD FILES LOCALLY
+    // ===========END OF UPLOAD FILES LOCALLY=========
     //==============Upload into ImgBB===================
     try {
         // Use the Multer middleware to handle the file upload
@@ -127,11 +127,11 @@ const fileUpload = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 });
 // File Deleting
 const deleteFileData = (req, res) => {
-    // When you upload a file into the database , that url will be here
+    // When you upload a file into the database , that fetch the URL, that URL will be here
     const path = 'http://localhost:5000/uploads/user-1728138253071.png';
-    const urlconversion = (0, photoPath_1.default)(path);
+    const urlconversion = (0, parsedUrl_1.default)(path); // convert into uploads/user-1728138253071.png like this
     if (urlconversion) {
-        (0, deleteFastFile_1.default)(urlconversion);
+        (0, deleteFastFile_1.default)(urlconversion); // takes the file path as parameter, uploads/user-3843.png and delete it.
         (0, sendApiResponse_1.default)(res, 200, true, 'Deleted file successfully');
     }
     else {

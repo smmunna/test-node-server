@@ -9,7 +9,7 @@ import userModel from "./user.model";
 import sendApiResponse from "../../lib/ApiResponse/sendApiResponse";
 import cloudStore from "../../utils/fileManagement/cloudStore";
 import deleteFastFile from "../../lib/file/deleteFastFile";
-import parsedURL from "../../lib/file/photoPath";
+import parsedURL from "../../lib/file/parsedUrl";
 import { photoUpload } from "../../utils/fileManagement/upload.config";
 
 // Create user
@@ -70,7 +70,7 @@ const signInUser = async (req: Request, res: Response, next: NextFunction) => {
 // File Uploading
 const fileUpload = async (req: Request, res: Response, next: NextFunction) => {
 
-    // UPLOAD FILES LOCALLY
+    // ========UPLOAD FILES LOCALLY=========
     // try {
     //     // Handle photo upload
     //     photoUpload.single('photo')(req, res, async (err) => {
@@ -94,7 +94,7 @@ const fileUpload = async (req: Request, res: Response, next: NextFunction) => {
     //     next(error)
     // }
 
-    // END OF UPLOAD FILES LOCALLY
+    // ===========END OF UPLOAD FILES LOCALLY=========
 
 
     //==============Upload into ImgBB===================
@@ -139,12 +139,12 @@ const fileUpload = async (req: Request, res: Response, next: NextFunction) => {
 // File Deleting
 const deleteFileData = (req: Request, res: Response) => {
 
-    // When you upload a file into the database , that url will be here
+    // When you upload a file into the database , that fetch the URL, that URL will be here
 
     const path = 'http://localhost:5000/uploads/user-1728138253071.png'
-    const urlconversion = parsedURL(path)
+    const urlconversion = parsedURL(path) // convert into uploads/user-1728138253071.png like this
     if (urlconversion) {
-        deleteFastFile(urlconversion)
+        deleteFastFile(urlconversion) // takes the file path as parameter, uploads/user-3843.png and delete it.
         sendApiResponse(res, 200, true, 'Deleted file successfully')
     }
     else {
