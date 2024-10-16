@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 // @ts-ignore
 import imgbbUploader from 'imgbb-uploader';
 import path from 'path'
-import deleteFile from "../../utils/fileManagement/deleteFile";
 import userModel from "./user.model";
 import sendApiResponse from "../../lib/ApiResponse/sendApiResponse";
 import cloudStore from "../../utils/fileManagement/cloudStore";
