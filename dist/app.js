@@ -17,6 +17,19 @@ app.use((0, helmet_1.default)());
 app.use(helmet_1.default.crossOriginResourcePolicy({ policy: "cross-origin" }));
 // Handling uploading the files to server
 app.use('/uploads', express_1.default.static('uploads'));
+// Allow only requests from a specific domain, frontend domain url eg. http://www.example.com
+const allowedDomains = ['http://localhost:5173', 'http://localhost:8081']; // default React.js, react-native frontend local domain url
+app.use((0, cors_1.default)({
+    origin: function (origin, callback) {
+        if (allowedDomains.includes(origin) || !origin) { // Allow if the request is from the allowed domain or if there's no origin (e.g., from Postman)
+            callback(null, true);
+        }
+        else {
+            callback(new Error('Access blocked: CORS policy does not allow this domain'));
+        }
+    },
+    credentials: true, // Enable if you want to allow cookies with the request
+}));
 // Route handlings;
 app.use('/api/v1/users', user_route_1.userRoutes);
 // SSL Commerze or any redirect routes will be Here, from controller with functions
