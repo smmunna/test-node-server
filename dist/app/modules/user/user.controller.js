@@ -163,7 +163,7 @@ const fileUpload = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 });
 // File Deleting
 const deleteFileData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // When you upload a file into the database , that fetch the URL, that URL will be here
+    // When you upload a file into the database , then fetch the URL, that URL will be here
     // const path = 'http://localhost:5000/uploads/user-1728138253071.png'
     // const urlconversion = parsedURL(path) // convert into uploads/user-1728138253071.png like this
     // if (urlconversion) {

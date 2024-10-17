@@ -192,7 +192,7 @@ const fileUpload = async (req: Request, res: Response, next: NextFunction) => {
 // File Deleting
 const deleteFileData = async (req: Request, res: Response) => {
 
-    // When you upload a file into the database , that fetch the URL, that URL will be here
+    // When you upload a file into the database , then fetch the URL, that URL will be here
 
     // const path = 'http://localhost:5000/uploads/user-1728138253071.png'
     // const urlconversion = parsedURL(path) // convert into uploads/user-1728138253071.png like this
