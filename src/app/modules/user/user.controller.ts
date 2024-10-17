@@ -17,11 +17,11 @@ import { deleteImageFromCloudinary } from "../../lib/cloudinary/deleteImage";
 // Create user
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = req.body;
+        const user = req.body
         const result = await UserService.createUserToDB(user)
         sendApiResponse(res, 200, true, 'User created successfully', result)
     } catch (error) {
-        next(error);
+        next(error)
     }
 }
 
@@ -34,7 +34,8 @@ const getUsers = async (req: Request, res: Response, next: NextFunction) => {
 /**
  * JWT GENERATE TOKEN WHEN SIGN IN USER
  * -------------------------------------
- * When user will sign in, then jwt token will be generated
+ * When user will sign in, then jwt token will be generated.
+ * You can use this jwt token in Authorization. 
  * */
 
 const signInUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -45,7 +46,7 @@ const signInUser = async (req: Request, res: Response, next: NextFunction) => {
 
     /**
      * You can check the user email and password Here ;
-     * If successful user, then sign token and login successful else Unauthorized user,Invalid Login
+     * If successfully login user, then sign token will be generated else Unauthorized user,Invalid Login
      * */
 
     // Check if the email exists in the database
@@ -74,7 +75,7 @@ const fileUpload = async (req: Request, res: Response, next: NextFunction) => {
 
     // ========UPLOAD FILES LOCALLY=========
     // try {
-    //     // Handle photo upload
+    //     // Handle photo upload, only single photo
     //     photoUpload.single('photo')(req, res, async (err) => {
     //         if (err) {
     //             console.error('Error uploading photo:', err);
@@ -192,7 +193,14 @@ const fileUpload = async (req: Request, res: Response, next: NextFunction) => {
 // File Deleting
 const deleteFileData = async (req: Request, res: Response) => {
 
-    // When you upload a file into the database , then fetch the URL, that URL will be here
+    /*
+    When you want to delete any product or delete any user information with their photo or other files.
+    This deleting method will help you.
+    Just fetch the data from database then you will get photo url. just pass this url to parsedURL() method, then
+    deleteFastFile() will delete the file
+    */ 
+    
+    // ===============DELETE LOCAL FILE============
 
     // const path = 'http://localhost:5000/uploads/user-1728138253071.png'
     // const urlconversion = parsedURL(path) // convert into uploads/user-1728138253071.png like this
@@ -207,9 +215,10 @@ const deleteFileData = async (req: Request, res: Response) => {
     // ===============END OF DELETING LOCAL FILE============
 
 
+
     //==========DELETE IMAGE FROM CLOUDINARY============
 
-    // const publicId = req.query.publicId as string; // Get public_id from the query parameter
+    // const publicId = req.query.publicId as string; // Get publicId from the query parameter
 
     // if (!publicId) {
     //     return res.status(400).json({ message: 'No public ID provided' });
@@ -228,9 +237,8 @@ const deleteFileData = async (req: Request, res: Response) => {
     //     res.status(500).json({ message: error.message });
     // }
 
+
     // ==========END OF DELETE IMAGE FROM CLOUDINARY =====
-
-
 }
 
 

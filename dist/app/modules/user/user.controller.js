@@ -36,7 +36,8 @@ const getUsers = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
 /**
  * JWT GENERATE TOKEN WHEN SIGN IN USER
  * -------------------------------------
- * When user will sign in, then jwt token will be generated
+ * When user will sign in, then jwt token will be generated.
+ * You can use this jwt token in Authorization.
  * */
 const signInUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const email = req.body.email;
@@ -44,7 +45,7 @@ const signInUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     // const user = email
     /**
      * You can check the user email and password Here ;
-     * If successful user, then sign token and login successful else Unauthorized user,Invalid Login
+     * If successfully login user, then sign token will be generated else Unauthorized user,Invalid Login
      * */
     // Check if the email exists in the database
     const user = yield user_model_1.default.findOne({ email });
@@ -66,7 +67,7 @@ const signInUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 const fileUpload = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     // ========UPLOAD FILES LOCALLY=========
     // try {
-    //     // Handle photo upload
+    //     // Handle photo upload, only single photo
     //     photoUpload.single('photo')(req, res, async (err) => {
     //         if (err) {
     //             console.error('Error uploading photo:', err);
@@ -163,7 +164,13 @@ const fileUpload = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 });
 // File Deleting
 const deleteFileData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // When you upload a file into the database , then fetch the URL, that URL will be here
+    /*
+    When you want to delete any product or delete any user information with their photo or other files.
+    This deleting method will help you.
+    Just fetch the data from database then you will get photo url. just pass this url to parsedURL() method, then
+    deleteFastFile() will delete the file
+    */
+    // ===============DELETE LOCAL FILE============
     // const path = 'http://localhost:5000/uploads/user-1728138253071.png'
     // const urlconversion = parsedURL(path) // convert into uploads/user-1728138253071.png like this
     // if (urlconversion) {
@@ -175,7 +182,7 @@ const deleteFileData = (req, res) => __awaiter(void 0, void 0, void 0, function*
     // }
     // ===============END OF DELETING LOCAL FILE============
     //==========DELETE IMAGE FROM CLOUDINARY============
-    // const publicId = req.query.publicId as string; // Get public_id from the query parameter
+    // const publicId = req.query.publicId as string; // Get publicId from the query parameter
     // if (!publicId) {
     //     return res.status(400).json({ message: 'No public ID provided' });
     // }

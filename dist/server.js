@@ -18,7 +18,7 @@ const app_1 = __importDefault(require("./app"));
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield mongoose_1.default.connect(`${process.env.DATABASE_URL}`);
+            yield mongoose_1.default.connect(`${process.env.DATABASE_URL}`); // Get database url from environment variable
             app_1.default.listen(process.env.PORT, () => {
                 console.log(`Example app listening on port ${process.env.PORT}`);
             });
@@ -28,4 +28,4 @@ function main() {
         }
     });
 }
-main();
+main(); //calling the main method to initialize
