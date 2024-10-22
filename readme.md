@@ -80,6 +80,5 @@ http://localhost:5000/api/v1/users
    - `server.ts`> server configuration here
    - `utils.ts`> contains important functions
 
-
   #### Thank you
   2024&copy; Developed by <a href="https://github.com/smmunna">smmunna</a>
