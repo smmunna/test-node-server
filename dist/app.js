@@ -24,9 +24,9 @@ Payment Gateway redirection URL success, fail and cancel
 Don't move after the cors policy, it will not work there.
 Will show the response like Access Blocked.
 */
-app.use('/success', orders_controller_1.orderController.success);
-app.use('/fail', orders_controller_1.orderController.fail);
-app.use('/cancel', orders_controller_1.orderController.cancel);
+app.use('/success/:tranId', orders_controller_1.orderController.success);
+app.use('/fail/:tranId', orders_controller_1.orderController.fail);
+app.use('/cancel/:tranId', orders_controller_1.orderController.cancel);
 // Allow only requests from a specific domain, frontend domain url eg. http://www.example.com
 const allowedDomains = ['http://localhost:5173']; // You can add more domains by separating with comma.
 // default React.js frontend local domain url

@@ -27,6 +27,7 @@ interface Orders {
     ship_state: string;
     ship_postcode: number;
     ship_country: string;
+    status: String;
 }
 
 export default Orders;

@@ -24,9 +24,9 @@ Payment Gateway redirection URL success, fail and cancel
 Don't move after the cors policy, it will not work there.
 Will show the response like Access Blocked.
 */
-app.use('/success', orderController.success)
-app.use('/fail', orderController.fail)
-app.use('/cancel', orderController.cancel)
+app.use('/success/:tranId', orderController.success)
+app.use('/fail/:tranId', orderController.fail)
+app.use('/cancel/:tranId', orderController.cancel)
 
 
 // Allow only requests from a specific domain, frontend domain url eg. http://www.example.com

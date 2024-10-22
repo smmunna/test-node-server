@@ -3,13 +3,13 @@ import Orders from './orders.interface';
 
 // Creating Schema
 const orderSchema = new Schema<Orders>({
-    total_amount: { type: Number, required: true},
-    currency: { type: String, required: true},
-    tran_id: { type: String, unique: true, required: true},
-    success_url: { type: String, required: true},
-    fail_url: { type: String , required: true},
-    cancel_url: { type: String, required: true},
-    ipn_url: { type: String, required:true },
+    total_amount: { type: Number, required: true },
+    currency: { type: String, required: true },
+    tran_id: { type: String, unique: true, required: true },
+    success_url: { type: String, required: true },
+    fail_url: { type: String, required: true },
+    cancel_url: { type: String, required: true },
+    ipn_url: { type: String, required: true },
     shipping_method: { type: String },
     product_name: { type: String },
     product_category: { type: String },
@@ -31,6 +31,7 @@ const orderSchema = new Schema<Orders>({
     ship_state: { type: String },
     ship_postcode: { type: Number },
     ship_country: { type: String },
+    status: { type: String }
 }, { timestamps: true }); // Adds createdAt and updatedAt timestamps
 
 // Creating a Model

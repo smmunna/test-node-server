@@ -1,16 +1,19 @@
 import { NextFunction, Request, Response } from "express";
 import sslCommerzConfiguration from "../../utils/paymentGateway/sslCommerze/sslCommerze.config";
+import { ObjectId } from 'mongodb';
+import orderModel from "./orders.model";
 
 // orderPay for receiveing payments data from user and send payment gateway url
-const orderPay = (req: Request, res: Response, next: NextFunction) => {
+const orderPay = async (req: Request, res: Response, next: NextFunction) => {
+    const transaction_id = new ObjectId().toString(); //generate auto transaction id
     const data = {
         total_amount: 100,
         currency: 'BDT',
-        tran_id: 'REF123', // use unique tran_id for each API call
-        success_url: process.env.PAYMENT_SUCCESS_URL,
-        fail_url: process.env.PAYMENT_FAIL_URL,
-        cancel_url: process.env.PAYMENT_CANCEL_URL,
-        ipn_url: process.env.IPN_URL,
+        tran_id: transaction_id, // use unique tran_id for each API call
+        success_url: `${process.env.PAYMENT_SUCCESS_URL}/${transaction_id}`,
+        fail_url: `${process.env.PAYMENT_FAIL_URL}/${transaction_id}`,
+        cancel_url: `${process.env.PAYMENT_CANCEL_URL}/${transaction_id}`,
+        ipn_url: `${process.env.PAYMENT_IPN_URL}/${transaction_id}`,
         shipping_method: 'Courier',
         product_name: 'Computer.',
         product_category: 'Electronic',
@@ -32,30 +35,107 @@ const orderPay = (req: Request, res: Response, next: NextFunction) => {
         ship_state: 'Dhaka',
         ship_postcode: 1000,
         ship_country: 'Bangladesh',
+        status: 'pending'
     };
 
-    // call sslcommerz configration file and passing data object to this
-    sslCommerzConfiguration(data)
-        .then((GatewayPageURL: any) => {
-            res.send({ chekoutPageURL: GatewayPageURL });
-            console.log('Redirecting to: ', GatewayPageURL);
-        })
-        .catch((error: Error) => {
-            next(error);
-        });
+    // console.log(data)
+
+    const order = await orderModel.create(data);
+
+    if (order) {
+        // call sslcommerz configration file and passing data object to this
+        sslCommerzConfiguration(data)
+            .then((GatewayPageURL: any) => {
+                res.send({ chekoutPageURL: GatewayPageURL });
+                console.log('Redirecting to: ', GatewayPageURL);
+            })
+            .catch((error: Error) => {
+                next(error);
+            });
+    }
+    else {
+        console.log('Something went wrong')
+    }
 }
+
 
 // Redirecting url to frontend
 const success = async (req: Request, res: Response) => {
-    res.redirect(`${process.env.FRONTEND_SUCCESS_URL}`)
+    const transaction_id = req.params.tranId; // get transaction id from url parameter
+    // here you can save transaction id and other data in your database
+    try {
+        // Update the order status to 'success'
+        const updatedOrder = await orderModel.findOneAndUpdate(
+            { tran_id: transaction_id },
+            { status: 'success' },
+            { new: true }
+        );
+
+        if (!updatedOrder) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        // console.log('Order updated to success:', updatedOrder);
+        // Redirect to Frontend success url
+        res.redirect(`${process.env.FRONTEND_SUCCESS_URL}`);
+
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating order', error });
+    }
+    // console.log(transaction_id)
+    // res.redirect(`${process.env.FRONTEND_SUCCESS_URL}`)
 }
 
+// If transaction is failed
 const fail = async (req: Request, res: Response) => {
-    res.redirect(`${process.env.FRONTEND_FAIL_URL}`)
+    const transaction_id = req.params.tranId; // get transaction id from url parameter
+    // here you can save transaction id and other data in your database
+    try {
+        // Update the order status to 'success'
+        const updatedOrder = await orderModel.findOneAndUpdate(
+            { tran_id: transaction_id },
+            { status: 'fail' },
+            { new: true }
+        );
+
+        if (!updatedOrder) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        // console.log('Order updated to fail:', updatedOrder);
+        // Redirect to Frontend fail url
+        res.redirect(`${process.env.FRONTEND_FAIL_URL}`);
+
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating order', error });
+    }
+    // res.redirect(`${process.env.FRONTEND_FAIL_URL}`)
 }
 
+// if user cancel the order
 const cancel = async (req: Request, res: Response) => {
-    res.redirect(`${process.env.FRONTEND_CANCEL_URL}`)
+    const transaction_id = req.params.tranId; // get transaction id from url parameter
+    // here you can save transaction id and other data in your database
+    try {
+        // Update the order status to 'success'
+        const updatedOrder = await orderModel.findOneAndUpdate(
+            { tran_id: transaction_id },
+            { status: 'cancel' },
+            { new: true }
+        );
+
+        if (!updatedOrder) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        // console.log('Order updated to cancel:', updatedOrder);
+        // Redirect to Frontend success url
+        res.redirect(`${process.env.FRONTEND_CANCEL_URL}`);
+
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating order', error });
+    }
+    // res.redirect(`${process.env.FRONTEND_CANCEL_URL}`)
 }
 
 export const orderController = {
