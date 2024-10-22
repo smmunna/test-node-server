@@ -4,9 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sslcommerz_lts_1 = __importDefault(require("sslcommerz-lts"));
-const store_id = process.env.STORE_ID;
-const store_passwd = process.env.STORE_PASSWORD;
-const is_live = process.env.IS_LIVE === 'false' ? false : true;
+const store_id = process.env.STORE_ID; //STORE_ID from the environment variable
+const store_passwd = process.env.STORE_PASSWORD; //STORE_PASSWORD from the environment variable
+const is_live = process.env.IS_LIVE === 'false' ? false : true; //When it will production level then it will true
+/**
+ * @description
+ * @param {string} data - data will be json type
+ * It will give the respose as GatewayPageURL
+*/
 const sslCommerzConfiguration = (data) => {
     const sslcz = new sslcommerz_lts_1.default(store_id, store_passwd, is_live);
     return sslcz.init(data).then((apiResponse) => {
@@ -25,7 +30,7 @@ exports.default = sslCommerzConfiguration;
 //     total_amount: 100,
 //     currency: 'BDT',
 //     tran_id: 'REF123', // use unique tran_id for each api call
-//     success_url: 'http://localhost:3030/success',
+//     success_url: 'http://localhost:3030/success', these are server url
 //     fail_url: 'http://localhost:3030/fail',
 //     cancel_url: 'http://localhost:3030/cancel',
 //     ipn_url: 'http://localhost:3030/ipn',

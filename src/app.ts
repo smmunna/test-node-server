@@ -4,6 +4,8 @@ import cors from 'cors'
 // Import your routes here
 import { userRoutes } from './app/modules/user/user.route'
 import helmet from 'helmet'
+import { orderRoutes } from './app/modules/orders/orders.route'
+import { orderController } from './app/modules/orders/orders.controller'
 
 const app = express()
 
@@ -17,26 +19,39 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 // Handling uploading the files to server
 app.use('/uploads', express.static('uploads'))
 
+/*
+Payment Gateway redirection URL success, fail and cancel
+Don't move after the cors policy, it will not work there.
+Will show the response like Access Blocked.
+*/
+app.use('/success', orderController.success)
+app.use('/fail', orderController.fail)
+app.use('/cancel', orderController.cancel)
+
+
 // Allow only requests from a specific domain, frontend domain url eg. http://www.example.com
-const allowedDomains = ['http://localhost:5173', 'http://localhost:8081']; // default React.js, react-native frontend local domain url
+const allowedDomains = ['http://localhost:5173']; // You can add more domains by separating with comma.
+// default React.js frontend local domain url
 app.use(cors({
     origin: function (origin: any, callback) {
         if (allowedDomains.includes(origin) || !origin) {  // Allow if the request is from the allowed domain or if there's no origin (e.g., from Postman)
             callback(null, true)
         } else {
-            callback(new Error('Access blocked: CORS policy does not allow this domain'))
+            callback(new Error('Access blocked: Unauthorized access!!!'))
         }
     },
     credentials: true, // Enable if you want to allow cookies with the request
 }))
 
+/*-------------------HANDLE ALL OF YOUR ROUTES HERE ----------------------*/
 
-// Route handlings;
-app.use('/api/v1/users', userRoutes)
+app.use('/api/v1/users', userRoutes) //users routes
+app.use('/api/v1/orders', orderRoutes) //orders routes
 
-// SSL Commerze or any redirect routes will be Here, from controller with functions
+/*-------------------HANDLE ALL OF YOUR ROUTES HERE ----------------------*/
 
 
+// Home route json messages
 app.get('/', (req: Request, res: Response) => {
     res.status(200).json({
         success: true,
@@ -47,7 +62,7 @@ app.get('/', (req: Request, res: Response) => {
     })
 })
 
-// Route Error
+// Route Error for any  url not found
 app.all('*', (req: Request, res: Response) => {
     res.status(404).json({
         status: 404,
