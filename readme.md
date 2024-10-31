@@ -1,12 +1,12 @@
-## Node.js Server Starter Template
+## Node-Express Server Starter Template
 
 ### Installation Process
 1. Run the following command
 ```javascript
-npx nodeexpressjs
+npx node-expressx
 ```
 2. Create a new database in MongoDB Compass or MongoDB Cloud Storage
-3. Then update `.env` file `DATABASE_URL`, Default name given `nextjs` change it whatever you want.
+3. Then update  name `example.env` to `.env`. Goto this `.env` file `DATABASE_URL`, Default name given `nextjs` change it whatever you want.
 4. You can add local and also cloud for production level.
 5. Then create a new table name `users`, contain following fields.
    ```javascript
