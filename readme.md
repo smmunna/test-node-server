@@ -64,7 +64,6 @@ http://localhost:5000/api/v1/users
    - "typescript"
    - "multer"
    - "sslcommerze"
-   - "paypal": maybe not supported
    - "bcrypt"
    - "nodemailer"
    - "helmet"
