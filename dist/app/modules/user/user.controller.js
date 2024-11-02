@@ -54,8 +54,9 @@ const signInUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     }
     // Sign in jwt token
     const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
+    const accessExpire = process.env.JWT_ACCESS_EXPIRES_IN;
     const token = jsonwebtoken_1.default.sign({ user }, `${accessTokenSecret}`, {
-        expiresIn: '1h'
+        expiresIn: `${accessExpire}`
     });
     res.status(200).json({
         success: true,
