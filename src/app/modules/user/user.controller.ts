@@ -58,8 +58,10 @@ const signInUser = async (req: Request, res: Response, next: NextFunction) => {
 
     // Sign in jwt token
     const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
+    const accessExpire = process.env.JWT_ACCESS_EXPIRES_IN;
+
     const token = jwt.sign({ user }, `${accessTokenSecret}`, {
-        expiresIn: '1h'
+        expiresIn: `${accessExpire}`
     })
 
     res.status(200).json({
@@ -198,8 +200,8 @@ const deleteFileData = async (req: Request, res: Response) => {
     This deleting method will help you.
     Just fetch the data from database then you will get photo url. just pass this url to parsedURL() method, then
     deleteFastFile() will delete the file
-    */ 
-    
+    */
+
     // ===============DELETE LOCAL FILE============
 
     // const path = 'http://localhost:5000/uploads/user-1728138253071.png'
