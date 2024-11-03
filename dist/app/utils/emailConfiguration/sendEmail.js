@@ -23,7 +23,7 @@ const nodemailer_1 = __importDefault(require("nodemailer"));
 const sendEmail = (receiver, sender, subject, message) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const transporter = nodemailer_1.default.createTransport({
-            host: process.env.MAIL_HOST,
+            host: `${process.env.MAIL_HOST}`,
             port: Number(process.env.MAIL_PORT),
             secure: true,
             auth: {

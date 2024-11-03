@@ -9,7 +9,7 @@ import nodemailer from 'nodemailer';
 const sendEmail = async (receiver: any, sender: any, subject: any, message: any) => {
     try {
         const transporter = nodemailer.createTransport({
-            host: process.env.MAIL_HOST,
+            host: `${process.env.MAIL_HOST}`,
             port: Number(process.env.MAIL_PORT),
             secure: true,
             auth: {
