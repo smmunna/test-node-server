@@ -120,7 +120,7 @@ const fileUpload = async (req: Request, res: Response, next: NextFunction) => {
 
     //         // Convert buffer to a file path and upload to ImgBB
     //         const imgBBResponse = await imgbbUploader({
-    //             apiKey: process.env.IMGBB_API_KEY, //IMGBB API Key from ENV file
+    //             apiKey: `${process.env.IMGBB_API_KEY}`, //IMGBB API Key from ENV file
     //             name: path.parse(uploadedFile.originalname).name, // Name for the image
     //             base64string: uploadedFile.buffer.toString('base64') // Convert file buffer to base64
     //         });
@@ -143,51 +143,51 @@ const fileUpload = async (req: Request, res: Response, next: NextFunction) => {
 
     //==============Upload into Cloudinary===================
 
-    // try {
-    //     // Configure Cloudinary
-    //     cloudinary.v2.config({
-    //         cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    //         api_key: process.env.CLOUDINARY_API_KEY,
-    //         api_secret: process.env.CLOUDINARY_API_SECRET,
-    //     });
+    try {
+        // Configure Cloudinary
+        cloudinary.v2.config({
+            cloud_name: `${process.env.CLOUDINARY_CLOUD_NAME}`,
+            api_key: `${process.env.CLOUDINARY_API_KEY}`,
+            api_secret: `${process.env.CLOUDINARY_API_SECRET}`,
+        });
 
-    //     // Use Multer middleware to handle the file upload
-    //     cloudStore.single('photo')(req, res, async (err: any) => {
-    //         if (err) {
-    //             // Handle Multer error (e.g., file size exceeds limit)
-    //             return res.status(400).send(err.message);
-    //         }
+        // Use Multer middleware to handle the file upload
+        cloudStore.single('photo')(req, res, async (err: any) => {
+            if (err) {
+                // Handle Multer error (e.g., file size exceeds limit)
+                return res.status(400).send(err.message);
+            }
 
-    //         // Multer has processed the file, and it can be accessed in req.file
-    //         const uploadedFile = req.file;
+            // Multer has processed the file, and it can be accessed in req.file
+            const uploadedFile = req.file;
 
-    //         if (!uploadedFile) {
-    //             return res.status(400).json({ message: 'No file uploaded' });
-    //         }
+            if (!uploadedFile) {
+                return res.status(400).json({ message: 'No file uploaded' });
+            }
 
-    //         // Upload the image to Cloudinary
-    //         cloudinary.v2.uploader.upload_stream(
-    //             { resource_type: 'image' },
-    //             (error, result) => {
-    //                 if (error) {
-    //                     console.error('Error uploading to Cloudinary:', error);
-    //                     return res.status(500).json({ message: 'Error uploading to Cloudinary', error });
-    //                 }
+            // Upload the image to Cloudinary
+            cloudinary.v2.uploader.upload_stream(
+                { resource_type: 'image' },
+                (error, result) => {
+                    if (error) {
+                        console.error('Error uploading to Cloudinary:', error);
+                        return res.status(500).json({ message: 'Error uploading to Cloudinary', error });
+                    }
 
-    //                 // Respond with Cloudinary response
-    //                 res.status(200).json({
-    //                     message: 'Photo uploaded successfully to Cloudinary',
-    //                     // data: result,
-    //                     imgUrl: result?.secure_url, // Direct URL to the image
-    //                     publicId: result?.public_id, // Public ID of the image in Cloudinary
-    //                 });
-    //             }
-    //         ).end(uploadedFile.buffer); // Send the file buffer to Cloudinary
-    //     });
-    // } catch (error) {
-    //     console.error('Error in fileUpload controller:', error);
-    //     res.status(500).send('Internal Server Error');
-    // }
+                    // Respond with Cloudinary response
+                    res.status(200).json({
+                        message: 'Photo uploaded successfully to Cloudinary',
+                        // data: result,
+                        imgUrl: result?.secure_url, // Direct URL to the image
+                        publicId: result?.public_id, // Public ID of the image in Cloudinary
+                    });
+                }
+            ).end(uploadedFile.buffer); // Send the file buffer to Cloudinary
+        });
+    } catch (error) {
+        console.error('Error in fileUpload controller:', error);
+        res.status(500).send('Internal Server Error');
+    }
 
     //==============END OF UPLOADING INTO CLOUDINARY===================
 }
