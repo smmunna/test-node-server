@@ -88,6 +88,29 @@ const fileUpload = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     //     next(error)
     // }
     // ===========END OF UPLOAD FILES LOCALLY=========
+    // ============ UPLOAD MULTIPLE PHOTOS ============
+    // try {
+    //     // Handle multiple photo uploads
+    //     photosUpload.array('photos', 5)(req, res, async (err) => {
+    //         if (err) {
+    //             console.error('Error uploading photos:', err);
+    //             return next(err);
+    //         }
+    //         // Collect URLs for each uploaded photo
+    //         const photoURLs = (req.files as Express.Multer.File[])?.map((file) => {
+    //             const photoPath = file.path;
+    //             return `${req.protocol}://${req.get('host')}/` + photoPath.replace(/\\/g, "/");
+    //         });
+    //         if (photoURLs.length > 0) {
+    //             sendApiResponse(res, 200, true, 'Photos Uploaded Successfully', photoURLs);
+    //         } else {
+    //             sendApiResponse(res, 400, false, 'Error Uploading Photos');
+    //         }
+    //     });
+    // } catch (error) {
+    //     next(error);
+    // }
+    // ============END OF UPLOAD MULTIPLE FILE=============
     //==============Upload into ImgBB===================
     // try {
     //     // Use the Multer middleware to handle the file upload

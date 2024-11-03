@@ -37,6 +37,24 @@ const photoUpload = configureMulter(
 );
 
 /**
+ * Configure multer for uploading photos.
+ * 
+ * @param {string} fieldName - The name of the field in the form (photos).
+ * @param {string[]} allowedMimeTypes - Array of allowed MIME types.
+ * @param {string} destinationPath - The destination directory for storing uploaded files.
+ * @param {string} filenamePrefix - Prefix for generated file names.
+ * @param {number} fileSizeLimit - Maximum allowed file size in bytes.
+ * @returns {object} - Configured multer instance.
+ */
+const photosUpload = configureMulter(
+    'photos', // fieldName
+    ['image/jpeg', 'image/png', 'image/jpg'], // allowedMimeTypes
+    './uploads/photos/', // destinationPath
+    'photo', // filenamePrefix
+    1000000 // fileSizeLimit (1 MB)
+);
+
+/**
  * Configure multer for uploading videos.
  * 
  * @param {string} fieldName - The name of the field in the form.
@@ -113,4 +131,4 @@ const anyFileUpload = configureMulter(
     10000000 // fileSizeLimit (10 MB)
 );
 
-export { documentUpload, photoUpload, videoUpload, audioUpload, fileUpload, anyFileUpload };
+export { documentUpload, photoUpload, photosUpload, videoUpload, audioUpload, fileUpload, anyFileUpload };

@@ -10,7 +10,7 @@ import sendApiResponse from "../../lib/ApiResponse/sendApiResponse";
 import cloudStore from "../../utils/fileManagement/cloudStore";
 import deleteFastFile from "../../lib/file/deleteFastFile";
 import parsedURL from "../../lib/file/parsedUrl";
-import { photoUpload } from "../../utils/fileManagement/upload.config";
+import { photosUpload, photoUpload } from "../../utils/fileManagement/upload.config";
 import axios from "axios";
 import { deleteImageFromCloudinary } from "../../lib/cloudinary/deleteImage";
 
@@ -100,6 +100,33 @@ const fileUpload = async (req: Request, res: Response, next: NextFunction) => {
     // }
 
     // ===========END OF UPLOAD FILES LOCALLY=========
+
+    
+    // ============ UPLOAD MULTIPLE PHOTOS ============
+    // try {
+    //     // Handle multiple photo uploads
+    //     photosUpload.array('photos', 5)(req, res, async (err) => {
+    //         if (err) {
+    //             console.error('Error uploading photos:', err);
+    //             return next(err);
+    //         }
+
+    //         // Collect URLs for each uploaded photo
+    //         const photoURLs = (req.files as Express.Multer.File[])?.map((file) => {
+    //             const photoPath = file.path;
+    //             return `${req.protocol}://${req.get('host')}/` + photoPath.replace(/\\/g, "/");
+    //         });
+
+    //         if (photoURLs.length > 0) {
+    //             sendApiResponse(res, 200, true, 'Photos Uploaded Successfully', photoURLs);
+    //         } else {
+    //             sendApiResponse(res, 400, false, 'Error Uploading Photos');
+    //         }
+    //     });
+    // } catch (error) {
+    //     next(error);
+    // }
+    // ============END OF UPLOAD MULTIPLE FILE=============
 
 
     //==============Upload into ImgBB===================

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.anyFileUpload = exports.fileUpload = exports.audioUpload = exports.videoUpload = exports.photoUpload = exports.documentUpload = void 0;
+exports.anyFileUpload = exports.fileUpload = exports.audioUpload = exports.videoUpload = exports.photosUpload = exports.photoUpload = exports.documentUpload = void 0;
 const multer_config_1 = __importDefault(require("./multer.config"));
 /**
  * Configure multer for uploading documents.
@@ -39,6 +39,23 @@ const photoUpload = (0, multer_config_1.default)('photo', // fieldName
 1000000 // fileSizeLimit (1 MB)
 );
 exports.photoUpload = photoUpload;
+/**
+ * Configure multer for uploading photos.
+ *
+ * @param {string} fieldName - The name of the field in the form (photos).
+ * @param {string[]} allowedMimeTypes - Array of allowed MIME types.
+ * @param {string} destinationPath - The destination directory for storing uploaded files.
+ * @param {string} filenamePrefix - Prefix for generated file names.
+ * @param {number} fileSizeLimit - Maximum allowed file size in bytes.
+ * @returns {object} - Configured multer instance.
+ */
+const photosUpload = (0, multer_config_1.default)('photos', // fieldName
+['image/jpeg', 'image/png', 'image/jpg'], // allowedMimeTypes
+'./uploads/photos/', // destinationPath
+'photo', // filenamePrefix
+1000000 // fileSizeLimit (1 MB)
+);
+exports.photosUpload = photosUpload;
 /**
  * Configure multer for uploading videos.
  *
