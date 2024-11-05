@@ -79,7 +79,7 @@ http://localhost:5000/api/v1/users
    - `server.ts`> server configuration here
    - `utils.ts`> contains important functions
 
-### Contributors ✨
+### Contributor ✨
 
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -91,35 +91,8 @@ http://localhost:5000/api/v1/users
             <sub><b>Minhazul Abedin Munna</b></sub>
         </a><br />
     </td>
-    <td align="center">
-        <a href="https://twitter.com/StanimiraVlaeva">
-            <img src="https://avatars.githubusercontent.com/u/7893485?v=4" width="100px;" alt=""/><br />
-            <sub><b>Stanimira Vlaeva</b></sub>
-        </a><br />
-    </td>
-    <td align="center">
-        <a href="https://www.linkedin.com/in/abdulahosama">
-            <img src="https://avatars.githubusercontent.com/u/51336081?v=4" width="100px;" alt=""/><br />
-            <sub><b>Abdullah Osama</b></sub>
-        </a><br />
-    </td>
-    <td align="center">
-        <a href="https://bleything.net/">
-            <img src="https://avatars.githubusercontent.com/u/270?v=4" width="100px;" alt=""/><br />
-            <sub><b>Ben Bleything</b></sub>
-        </a><br />
-    </td>
-    <td align="center">
-        <a href="https://youtube.com/codestackr/">
-            <img src="https://avatars.githubusercontent.com/u/52665907?v=4" width="100px;" alt=""/><br />
-            <sub><b>Jesse Hall @codeSTACKr</b></sub>
-        </a><br />
-    </td>
   </tr>
 </table>
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
-
-### Thank you
-  2024&copy; Developed by <a href="https://github.com/smmunna">smmunna</a>
