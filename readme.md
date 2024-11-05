@@ -51,34 +51,6 @@ http://localhost:5000/api/v1/
 http://localhost:5000/api/v1/users
 ```
 
-### New Features
-   - Server created with Node, Express, TypeScript (JS)
-
-### Installed packages (NPM)
-   - "cors"
-   - "dotenv"
-   - "express"
-   - "jsonwebtoken"
-   - "mongoose"
-   - "nodemon"
-   - "typescript"
-   - "multer"
-   - "sslcommerze"
-   - "bcrypt"
-   - "nodemailer"
-   - "helmet"
-   - "axios"
-   - "imgbb"
-   - "cloudinary"
-
-### Folder Structures
-   - `dist` > compiled the src folder all files
-   - `src` > contains all the important folders
-   - `app` > contains middleware, modules, utils
-   - `app.ts`> base of the application
-   - `server.ts`> server configuration here
-   - `utils.ts`> contains important functions
-
 ### Contributor ✨
 
 <!-- prettier-ignore-start -->
@@ -96,3 +68,6 @@ http://localhost:5000/api/v1/users
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
+
+### Thank you
+  2024&copy; Developed by <a href="https://github.com/smmunna">smmunna</a>
