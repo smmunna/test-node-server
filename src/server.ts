@@ -2,7 +2,7 @@
 import mongoose from 'mongoose';
 import app from './app'
 import { createServer } from 'http';
-import { initializeSocket } from './app/lib/socketIo/socketio';
+import { initializeSocket } from './app/utils/socketIo/socketio';
 
 async function main() {
     try {

@@ -16,7 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const app_1 = __importDefault(require("./app"));
 const http_1 = require("http");
-const socketio_1 = require("./app/lib/socketIo/socketio");
+const socketio_1 = require("./app/utils/socketIo/socketio");
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
