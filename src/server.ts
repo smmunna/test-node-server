@@ -1,13 +1,27 @@
 //CREATE CONNECTION WITH MONGODB DATABASE
 import mongoose from 'mongoose';
 import app from './app'
+import { createServer } from 'http';
+import { initializeSocket } from './app/lib/socketIo/socketio';
 
 async function main() {
     try {
+
+        // Connect to MongoDB
         await mongoose.connect(`${process.env.DATABASE_URL}`) // Get database url from environment variable
-        app.listen(process.env.PORT, () => {
-            console.log(`Example app listening on port ${process.env.PORT}`)
-        })
+        console.log('MongoDB Connected Successfully.');
+
+        // Create the HTTP server
+        const server = createServer(app)
+
+        // Initialize socket.io
+        initializeSocket(server);
+
+        // Start the server
+        const PORT = process.env.PORT || 5000;
+        server.listen(PORT, () => {
+            console.log(`Server listening on port http://localhost:${PORT}`);
+        });
     } catch (error) {
         console.log(error)
     }
