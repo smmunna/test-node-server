@@ -18,7 +18,7 @@ async function main() {
         // initializeSocket(server)
 
         //Room socket configuration, only connected rooms are broadcasting
-        roomSocketConfiguration(server)
+        // roomSocketConfiguration(server)
 
         // Start the server
         const PORT = process.env.PORT || 5000;

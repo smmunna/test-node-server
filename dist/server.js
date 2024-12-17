@@ -16,7 +16,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const app_1 = __importDefault(require("./app"));
 const http_1 = require("http");
-const socketio_1 = require("./app/utils/socketIo/socketio");
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -28,7 +27,7 @@ function main() {
             // Initialize socket.io, broadcasting to all connected browsers
             // initializeSocket(server)
             //Room socket configuration, only connected rooms are broadcasting
-            (0, socketio_1.roomSocketConfiguration)(server);
+            // roomSocketConfiguration(server)
             // Start the server
             const PORT = process.env.PORT || 5000;
             server.listen(PORT, () => {
