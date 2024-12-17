@@ -25,8 +25,10 @@ function main() {
             console.log('MongoDB Connected Successfully.');
             // Create the HTTP server
             const server = (0, http_1.createServer)(app_1.default);
-            // Initialize socket.io
-            (0, socketio_1.initializeSocket)(server);
+            // Initialize socket.io, broadcasting to all connected browsers
+            // initializeSocket(server)
+            //Room socket configuration, only connected rooms are broadcasting
+            (0, socketio_1.roomSocketConfiguration)(server);
             // Start the server
             const PORT = process.env.PORT || 5000;
             server.listen(PORT, () => {
