@@ -40,10 +40,10 @@ const sendEmail = (receiver, sender, subject, message) => __awaiter(void 0, void
             html: `<div>${message}</div>`,
         });
         // console.log("Message sent: %s", info.messageId);
-        return "Mail sent successfully.";
+        return 'Mail sent successfully.';
     }
     catch (error) {
-        console.error("Error occurred while sending email:", error);
+        console.error('Error occurred while sending email:', error);
         throw error;
     }
 });
@@ -66,4 +66,4 @@ exports.default = sendEmail;
     }
  *
  *
- * */ 
+ * */

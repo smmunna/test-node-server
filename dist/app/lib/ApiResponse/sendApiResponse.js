@@ -4,7 +4,7 @@ const sendApiResponse = (res, statusCode, success, message, data) => {
     const response = {
         success,
         message,
-        data
+        data,
     };
     return res.status(statusCode).json(response);
 };

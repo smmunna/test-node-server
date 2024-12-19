@@ -49,7 +49,7 @@ const orderPay = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
         ship_state: 'Dhaka',
         ship_postcode: 1000,
         ship_country: 'Bangladesh',
-        status: 'pending'
+        status: 'pending',
     };
     // console.log(data)
     const order = yield orders_model_1.default.create(data);

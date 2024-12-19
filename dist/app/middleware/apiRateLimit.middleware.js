@@ -32,9 +32,9 @@ const adminLimiter = (0, express_rate_limit_1.default)({
     message: (req) => {
         return {
             status: 429,
-            message: `Too many requests from IP ${req.ip} for ${req.method} ${req.originalUrl}, please try again later`
+            message: `Too many requests from IP ${req.ip} for ${req.method} ${req.originalUrl}, please try again later`,
         };
-    }
+    },
 });
 // User Limiter
 const userLimiter = (0, express_rate_limit_1.default)({
@@ -43,9 +43,9 @@ const userLimiter = (0, express_rate_limit_1.default)({
     message: (req) => {
         return {
             status: 429,
-            message: `Too many requests from IP ${req.ip} for ${req.method} ${req.originalUrl}, please try again later`
+            message: `Too many requests from IP ${req.ip} for ${req.method} ${req.originalUrl}, please try again later`,
         };
-    }
+    },
 });
 // Default Limiter
 const defaultLimiter = (0, express_rate_limit_1.default)({
@@ -54,9 +54,9 @@ const defaultLimiter = (0, express_rate_limit_1.default)({
     message: (req) => {
         return {
             status: 429,
-            message: `Too many requests from IP ${req.ip} for ${req.method} ${req.originalUrl}, please try again later`
+            message: `Too many requests from IP ${req.ip} for ${req.method} ${req.originalUrl}, please try again later`,
         };
-    }
+    },
 });
 /**
  * @description

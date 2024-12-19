@@ -2,7 +2,8 @@ import { Schema, model } from 'mongoose';
 import Orders from './orders.interface';
 
 // Creating Schema
-const orderSchema = new Schema<Orders>({
+const orderSchema = new Schema<Orders>(
+  {
     total_amount: { type: Number, required: true },
     currency: { type: String, required: true },
     tran_id: { type: String, unique: true, required: true },
@@ -31,8 +32,10 @@ const orderSchema = new Schema<Orders>({
     ship_state: { type: String },
     ship_postcode: { type: Number },
     ship_country: { type: String },
-    status: { type: String }
-}, { timestamps: true }); // Adds createdAt and updatedAt timestamps
+    status: { type: String },
+  },
+  { timestamps: true },
+); // Adds createdAt and updatedAt timestamps
 
 // Creating a Model
 const orderModel = model<Orders>('order', orderSchema);

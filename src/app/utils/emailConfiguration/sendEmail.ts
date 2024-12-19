@@ -5,38 +5,42 @@ import config from '../../config';
  * @param receiver -  Write recevier email address
  * @param sender -  Write sender email address
  * @param subject -  Write subject
- * @param message -  Write message, that can be used as plain text or using html 
- * */ 
-const sendEmail = async (receiver: any, sender: any, subject: any, message: any) => {
-    try {
-        const transporter = nodemailer.createTransport({
-            host: `${config.mail_host}`,
-            port: Number(config.mail_port),
-            secure: true,
-            auth: {
-                user: `${config.mail_username}`,
-                pass: `${config.mail_password}`,
-            },
-        });
+ * @param message -  Write message, that can be used as plain text or using html
+ * */
+const sendEmail = async (
+  receiver: any,
+  sender: any,
+  subject: any,
+  message: any,
+) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      host: `${config.mail_host}`,
+      port: Number(config.mail_port),
+      secure: true,
+      auth: {
+        user: `${config.mail_username}`,
+        pass: `${config.mail_password}`,
+      },
+    });
 
-        const info = await transporter.sendMail({
-            from: `"TechZaint 👻" <${sender}>`,
-            to: receiver,
-            subject: subject,
-            text: message,
-            html: `<div>${message}</div>`,
-        });
+    const info = await transporter.sendMail({
+      from: `"TechZaint 👻" <${sender}>`,
+      to: receiver,
+      subject: subject,
+      text: message,
+      html: `<div>${message}</div>`,
+    });
 
-        // console.log("Message sent: %s", info.messageId);
-        return "Mail sent successfully.";
-    } catch (error) {
-        console.error("Error occurred while sending email:", error);
-        throw error;
-    }
+    // console.log("Message sent: %s", info.messageId);
+    return 'Mail sent successfully.';
+  } catch (error) {
+    console.error('Error occurred while sending email:', error);
+    throw error;
+  }
 };
 
 export default sendEmail;
-
 
 /**
  * Following this way do it in the controller

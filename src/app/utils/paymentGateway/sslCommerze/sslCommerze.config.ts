@@ -1,4 +1,4 @@
-import SSLCommerzPayment from 'sslcommerz-lts'
+import SSLCommerzPayment from 'sslcommerz-lts';
 import config from '../../../config';
 
 const store_id = config.ssl_storeId; //STORE_ID from the environment variable
@@ -9,23 +9,26 @@ const is_live = config.ssl_isLive === 'false' ? false : true; //When it will pro
  * @description
  * @param {string} data - data will be json type
  * It will give the respose as GatewayPageURL
-*/
+ */
 const sslCommerzConfiguration = (data: any) => {
-    const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live)
-    return sslcz.init(data).then((apiResponse: any) => {
-        return apiResponse.GatewayPageURL;
-    }).catch((error: Error) => {
-        console.error('Error initializing SSLCommerz:', error);
-        throw new Error('Internal Server Error');
+  const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live);
+  return sslcz
+    .init(data)
+    .then((apiResponse: any) => {
+      return apiResponse.GatewayPageURL;
+    })
+    .catch((error: Error) => {
+      console.error('Error initializing SSLCommerz:', error);
+      throw new Error('Internal Server Error');
     });
-}
+};
 
 export default sslCommerzConfiguration;
 
 /**
  * HERE data variable will be contain these values, you will call the sslCommerzConfiguration function
  * and sent the data to this function.
- * */ 
+ * */
 
 // const data = {
 //     total_amount: 100,

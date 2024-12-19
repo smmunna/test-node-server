@@ -19,8 +19,7 @@ const documentUpload = (0, multer_config_1.default)('doc', // fieldName
 ['application/pdf'], // allowedMimeTypes
 './uploads/documents/', // destinationPath
 'document', // filenamePrefix
-5000000 // fileSizeLimit (5 MB)
-);
+5000000);
 exports.documentUpload = documentUpload;
 /**
  * Configure multer for uploading photos.
@@ -36,8 +35,7 @@ const photoUpload = (0, multer_config_1.default)('photo', // fieldName
 ['image/jpeg', 'image/png', 'image/jpg'], // allowedMimeTypes
 './uploads/photos/', // destinationPath
 'photo', // filenamePrefix
-1000000 // fileSizeLimit (1 MB)
-);
+1000000);
 exports.photoUpload = photoUpload;
 /**
  * Configure multer for uploading photos.
@@ -53,8 +51,7 @@ const photosUpload = (0, multer_config_1.default)('photos', // fieldName
 ['image/jpeg', 'image/png', 'image/jpg'], // allowedMimeTypes
 './uploads/photos/', // destinationPath
 'photo', // filenamePrefix
-1000000 // fileSizeLimit (1 MB)
-);
+1000000);
 exports.photosUpload = photosUpload;
 /**
  * Configure multer for uploading videos.
@@ -70,8 +67,7 @@ const videoUpload = (0, multer_config_1.default)('video', // fieldName
 ['video/mp4', 'video/mpeg'], // allowedMimeTypes
 './uploads/videos/', // destinationPath
 'video', // filenamePrefix
-50000000 // fileSizeLimit (50 MB)
-);
+50000000);
 exports.videoUpload = videoUpload;
 /**
  * Configure multer for uploading audio files.
@@ -87,8 +83,7 @@ const audioUpload = (0, multer_config_1.default)('audio', // fieldName
 ['audio/mpeg', 'audio/wav'], // allowedMimeTypes
 './uploads/audio/', // destinationPath
 'audio', // filenamePrefix
-20000000 // fileSizeLimit (20 MB)
-);
+20000000);
 exports.audioUpload = audioUpload;
 /**
  * Configure multer for uploading general files.
@@ -105,12 +100,11 @@ const fileUpload = (0, multer_config_1.default)('file', // fieldName
     'application/pdf',
     'application/msword',
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 ], // allowedMimeTypes
 './uploads/files/', // destinationPath
 'file', // filenamePrefix
-10000000 // fileSizeLimit (10 MB)
-);
+10000000);
 exports.fileUpload = fileUpload;
 /**
  * Configure multer for uploading any type of file.
@@ -125,6 +119,5 @@ const anyFileUpload = (0, multer_config_1.default)('file', // fieldName
 ['*/*'], // allowedMimeTypes (Wildcard MIME type to accept any file type)
 './uploads/files/', // destinationPath
 'file', // filenamePrefix
-10000000 // fileSizeLimit (10 MB)
-);
+10000000);
 exports.anyFileUpload = anyFileUpload;

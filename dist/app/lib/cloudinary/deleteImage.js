@@ -32,7 +32,9 @@ const deleteImageFromCloudinary = (publicId) => __awaiter(void 0, void 0, void 0
         throw new Error('No public ID provided');
     }
     try {
-        const result = yield cloudinary_1.default.v2.uploader.destroy(publicId, { resource_type: 'image' });
+        const result = yield cloudinary_1.default.v2.uploader.destroy(publicId, {
+            resource_type: 'image',
+        });
         return result;
     }
     catch (error) {

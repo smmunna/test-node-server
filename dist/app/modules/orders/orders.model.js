@@ -31,7 +31,7 @@ const orderSchema = new mongoose_1.Schema({
     ship_state: { type: String },
     ship_postcode: { type: Number },
     ship_country: { type: String },
-    status: { type: String }
+    status: { type: String },
 }, { timestamps: true }); // Adds createdAt and updatedAt timestamps
 // Creating a Model
 const orderModel = (0, mongoose_1.model)('order', orderSchema);

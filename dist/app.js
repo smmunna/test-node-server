@@ -16,7 +16,7 @@ app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 // Helmet for Security purpose, hiding the 'Express' server name from Header
 app.use((0, helmet_1.default)());
-app.use(helmet_1.default.crossOriginResourcePolicy({ policy: "cross-origin" }));
+app.use(helmet_1.default.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 // Handling uploading the files to server
 app.use('/uploads', express_1.default.static('uploads'));
 /*
@@ -32,7 +32,8 @@ const allowedDomains = ['http://localhost:5173']; // You can add more domains by
 // default React.js frontend local domain url
 app.use((0, cors_1.default)({
     origin: function (origin, callback) {
-        if (allowedDomains.includes(origin) || !origin) { // Allow if the request is from the allowed domain or if there's no origin (e.g., from Postman)
+        if (allowedDomains.includes(origin) || !origin) {
+            // Allow if the request is from the allowed domain or if there's no origin (e.g., from Postman)
             callback(null, true);
         }
         else {
@@ -59,7 +60,7 @@ app.get('/', (req, res) => {
 app.all('*', (req, res) => {
     res.status(404).json({
         status: 404,
-        message: 'Not Found'
+        message: 'Not Found',
     });
 });
 // Global Error Handler
@@ -67,7 +68,7 @@ app.use((error, req, res, next) => {
     if (error) {
         res.status(500).send({
             success: false,
-            message: error.message
+            message: error.message,
         });
     }
 });

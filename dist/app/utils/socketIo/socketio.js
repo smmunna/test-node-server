@@ -41,7 +41,11 @@ const roomSocketConfiguration = (server) => {
             if (roomName === null || roomName === void 0 ? void 0 : roomName.trim()) {
                 socket.join(roomName);
                 console.log(`User ${socket.id} joined room: ${roomName}`);
-                io.to(roomName).emit('roomMessage', { userId: 'System', text: `${socket.id} has joined the room`, room: roomName });
+                io.to(roomName).emit('roomMessage', {
+                    userId: 'System',
+                    text: `${socket.id} has joined the room`,
+                    room: roomName,
+                });
             }
         });
         // Leave a room
@@ -49,7 +53,11 @@ const roomSocketConfiguration = (server) => {
             if (roomName === null || roomName === void 0 ? void 0 : roomName.trim()) {
                 socket.leave(roomName);
                 console.log(`User ${socket.id} left room: ${roomName}`);
-                io.to(roomName).emit('roomMessage', { userId: 'System', text: `${socket.id} has left the room`, room: roomName });
+                io.to(roomName).emit('roomMessage', {
+                    userId: 'System',
+                    text: `${socket.id} has left the room`,
+                    room: roomName,
+                });
             }
         });
         // Send a message to a specific room

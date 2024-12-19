@@ -6,31 +6,33 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const paypal_rest_sdk_1 = __importDefault(require("paypal-rest-sdk"));
 const config_1 = __importDefault(require("../../../config"));
 paypal_rest_sdk_1.default.configure({
-    'mode': 'sandbox', //sandbox or live
-    'client_id': `${config_1.default.paypal_client_id}`,
-    'client_secret': `${config_1.default.paypal_client_secret}`
+    mode: 'sandbox', //sandbox or live
+    client_id: `${config_1.default.paypal_client_id}`,
+    client_secret: `${config_1.default.paypal_client_secret}`,
 });
 const createPayPalPayment = (items, total, description) => {
     return new Promise((resolve, reject) => {
         const create_payment_json = {
-            "intent": "sale",
-            "payer": {
-                "payment_method": "paypal"
+            intent: 'sale',
+            payer: {
+                payment_method: 'paypal',
             },
-            "redirect_urls": {
-                "return_url": "http://localhost:5000/success",
-                "cancel_url": "http://localhost:5000/cancel"
+            redirect_urls: {
+                return_url: 'http://localhost:5000/success',
+                cancel_url: 'http://localhost:5000/cancel',
             },
-            "transactions": [{
-                    "item_list": {
-                        "items": [items]
+            transactions: [
+                {
+                    item_list: {
+                        items: [items],
                     },
-                    "amount": {
-                        "currency": "USD",
-                        "total": total
+                    amount: {
+                        currency: 'USD',
+                        total: total,
                     },
-                    "description": description
-                }]
+                    description: description,
+                },
+            ],
         };
         paypal_rest_sdk_1.default.payment.create(create_payment_json, function (error, payment) {
             if (error) {
@@ -49,11 +51,11 @@ const createPayPalPayment = (items, total, description) => {
                         resolve(approvalUrl);
                     }
                     else {
-                        reject(new Error("Approval URL not found."));
+                        reject(new Error('Approval URL not found.'));
                     }
                 }
                 else {
-                    reject(new Error("No links found in payment response."));
+                    reject(new Error('No links found in payment response.'));
                 }
             }
         });

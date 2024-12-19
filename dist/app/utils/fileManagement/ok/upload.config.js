@@ -1,10 +1,18 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.anyFileUpload = exports.fileUpload = exports.audioUpload = exports.videoUpload = exports.photoUpload = exports.documentUpload = void 0;
-const multer_config_1 = __importDefault(require("../multer.config"));
+'use strict';
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
+Object.defineProperty(exports, '__esModule', { value: true });
+exports.anyFileUpload =
+  exports.fileUpload =
+  exports.audioUpload =
+  exports.videoUpload =
+  exports.photoUpload =
+  exports.documentUpload =
+    void 0;
+const multer_config_1 = __importDefault(require('../multer.config'));
 /**
  * Configure multer for uploading documents.
  *
@@ -15,11 +23,12 @@ const multer_config_1 = __importDefault(require("../multer.config"));
  * @param {number} fileSizeLimit - Maximum allowed file size in bytes.
  * @returns {object} - Configured multer instance.
  */
-const documentUpload = (0, multer_config_1.default)('doc', // fieldName
-['application/pdf'], // allowedMimeTypes
-'./uploads/documents/', // destinationPath
-'document', // filenamePrefix
-5000000 // fileSizeLimit (5 MB)
+const documentUpload = (0, multer_config_1.default)(
+  'doc', // fieldName
+  ['application/pdf'], // allowedMimeTypes
+  './uploads/documents/', // destinationPath
+  'document', // filenamePrefix
+  5000000, // fileSizeLimit (5 MB)
 );
 exports.documentUpload = documentUpload;
 /**
@@ -32,11 +41,12 @@ exports.documentUpload = documentUpload;
  * @param {number} fileSizeLimit - Maximum allowed file size in bytes.
  * @returns {object} - Configured multer instance.
  */
-const photoUpload = (0, multer_config_1.default)('photo', // fieldName
-['image/jpeg', 'image/png', 'image/jpg'], // allowedMimeTypes
-'./uploads/photos/', // destinationPath
-'photo', // filenamePrefix
-1000000 // fileSizeLimit (1 MB)
+const photoUpload = (0, multer_config_1.default)(
+  'photo', // fieldName
+  ['image/jpeg', 'image/png', 'image/jpg'], // allowedMimeTypes
+  './uploads/photos/', // destinationPath
+  'photo', // filenamePrefix
+  1000000, // fileSizeLimit (1 MB)
 );
 exports.photoUpload = photoUpload;
 /**
@@ -49,11 +59,12 @@ exports.photoUpload = photoUpload;
  * @param {number} fileSizeLimit - Maximum allowed file size in bytes.
  * @returns {object} - Configured multer instance.
  */
-const videoUpload = (0, multer_config_1.default)('video', // fieldName
-['video/mp4', 'video/mpeg'], // allowedMimeTypes
-'./uploads/videos/', // destinationPath
-'video', // filenamePrefix
-50000000 // fileSizeLimit (50 MB)
+const videoUpload = (0, multer_config_1.default)(
+  'video', // fieldName
+  ['video/mp4', 'video/mpeg'], // allowedMimeTypes
+  './uploads/videos/', // destinationPath
+  'video', // filenamePrefix
+  50000000, // fileSizeLimit (50 MB)
 );
 exports.videoUpload = videoUpload;
 /**
@@ -66,11 +77,12 @@ exports.videoUpload = videoUpload;
  * @param {number} fileSizeLimit - Maximum allowed file size in bytes.
  * @returns {object} - Configured multer instance.
  */
-const audioUpload = (0, multer_config_1.default)('audio', // fieldName
-['audio/mpeg', 'audio/wav'], // allowedMimeTypes
-'./uploads/audio/', // destinationPath
-'audio', // filenamePrefix
-20000000 // fileSizeLimit (20 MB)
+const audioUpload = (0, multer_config_1.default)(
+  'audio', // fieldName
+  ['audio/mpeg', 'audio/wav'], // allowedMimeTypes
+  './uploads/audio/', // destinationPath
+  'audio', // filenamePrefix
+  20000000, // fileSizeLimit (20 MB)
 );
 exports.audioUpload = audioUpload;
 /**
@@ -83,16 +95,17 @@ exports.audioUpload = audioUpload;
  * @param {number} fileSizeLimit - 10 MB Maximum allowed file size in bytes.
  * @returns {object} - Configured multer instance.
  */
-const fileUpload = (0, multer_config_1.default)('file', // fieldName
-[
+const fileUpload = (0, multer_config_1.default)(
+  'file', // fieldName
+  [
     'application/pdf',
     'application/msword',
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    'application/vnd.openxmlformats-officedocument.presentationml.presentation'
-], // allowedMimeTypes
-'./uploads/files/', // destinationPath
-'file', // filenamePrefix
-10000000 // fileSizeLimit (10 MB)
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+  ], // allowedMimeTypes
+  './uploads/files/', // destinationPath
+  'file', // filenamePrefix
+  10000000, // fileSizeLimit (10 MB)
 );
 exports.fileUpload = fileUpload;
 /**
@@ -104,10 +117,11 @@ exports.fileUpload = fileUpload;
  * @param {number} fileSizeLimit - 10MB Maximum allowed file size in bytes.
  * @returns {object} - Configured multer instance.
  */
-const anyFileUpload = (0, multer_config_1.default)('file', // fieldName
-['*/*'], // allowedMimeTypes (Wildcard MIME type to accept any file type)
-'./uploads/files/', // destinationPath
-'file', // filenamePrefix
-10000000 // fileSizeLimit (10 MB)
+const anyFileUpload = (0, multer_config_1.default)(
+  'file', // fieldName
+  ['*/*'], // allowedMimeTypes (Wildcard MIME type to accept any file type)
+  './uploads/files/', // destinationPath
+  'file', // filenamePrefix
+  10000000, // fileSizeLimit (10 MB)
 );
 exports.anyFileUpload = anyFileUpload;

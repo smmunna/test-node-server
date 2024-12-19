@@ -12,12 +12,15 @@ const is_live = config_1.default.ssl_isLive === 'false' ? false : true; //When i
  * @description
  * @param {string} data - data will be json type
  * It will give the respose as GatewayPageURL
-*/
+ */
 const sslCommerzConfiguration = (data) => {
     const sslcz = new sslcommerz_lts_1.default(store_id, store_passwd, is_live);
-    return sslcz.init(data).then((apiResponse) => {
+    return sslcz
+        .init(data)
+        .then((apiResponse) => {
         return apiResponse.GatewayPageURL;
-    }).catch((error) => {
+    })
+        .catch((error) => {
         console.error('Error initializing SSLCommerz:', error);
         throw new Error('Internal Server Error');
     });

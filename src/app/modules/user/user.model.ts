@@ -4,28 +4,28 @@ import bcrypt from 'bcrypt';
 
 // Creating Schema
 const userSchema = new Schema<User>({
-    username: { type: String, required: true },
-    email: { type: String },
-    password: { type: String, required: true },
-    role: { type: String }
-})
+  username: { type: String, required: true },
+  email: { type: String },
+  password: { type: String, required: true },
+  role: { type: String },
+});
 
 // Pre-save hook to hash the password
 userSchema.pre('save', function (next) {
-    const user = this as any;
+  const user = this as any;
 
-    // Hash the password only if it's new or modified
-    if (!user.isModified('password')) return next();
+  // Hash the password only if it's new or modified
+  if (!user.isModified('password')) return next();
 
-    bcrypt.hash(user.password, 10, (err, hash) => {
-        if (err) return next(err);
-        user.password = hash;
-        next();
-    });
+  bcrypt.hash(user.password, 10, (err, hash) => {
+    if (err) return next(err);
+    user.password = hash;
+    next();
+  });
 });
 
 // Creating a Model
-const userModel = model<User>('user', userSchema)
+const userModel = model<User>('user', userSchema);
 
 export default userModel;
 
@@ -43,4 +43,4 @@ In controller
 const user = await userModel.findOne({ username });
 const isMatch = await user.comparePassword(inputPassword);
 
-*/ 
+*/

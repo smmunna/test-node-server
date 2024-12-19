@@ -57,12 +57,12 @@ const signInUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     const accessTokenSecret = config_1.default.jwt_secret_token;
     const accessExpire = config_1.default.jwt_expire_time;
     const token = jsonwebtoken_1.default.sign({ user }, `${accessTokenSecret}`, {
-        expiresIn: `${accessExpire}`
+        expiresIn: `${accessExpire}`,
     });
     res.status(200).json({
         success: true,
         user: user,
-        token: token
+        token: token,
     });
 });
 // File Uploading
@@ -190,11 +190,11 @@ const fileUpload = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 // File Deleting
 const deleteFileData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     /*
-    When you want to delete any product or delete any user information with their photo or other files.
-    This deleting method will help you.
-    Just fetch the data from database then you will get photo url. just pass this url to parsedURL() method, then
-    deleteFastFile() will delete the file
-    */
+      When you want to delete any product or delete any user information with their photo or other files.
+      This deleting method will help you.
+      Just fetch the data from database then you will get photo url. just pass this url to parsedURL() method, then
+      deleteFastFile() will delete the file
+      */
     // ===============DELETE LOCAL FILE============
     // const path = 'http://localhost:5000/uploads/user-1728138253071.png'
     // const urlconversion = parsedURL(path) // convert into uploads/user-1728138253071.png like this
@@ -230,5 +230,5 @@ exports.userController = {
     getUsers,
     signInUser,
     fileUpload,
-    deleteFileData
+    deleteFileData,
 };

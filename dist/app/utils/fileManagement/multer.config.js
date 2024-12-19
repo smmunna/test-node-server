@@ -16,9 +16,11 @@ const configureMulter = (fieldName, allowedMimeTypes, destinationPath, filenameP
                 .replace(fileExt, '')
                 .toLowerCase()
                 .split(' ')
-                .join('-') + '-' + Date.now();
+                .join('-') +
+                '-' +
+                Date.now();
             cb(null, filename + fileExt);
-        }
+        },
     });
     const fileFilter = (req, file, cb) => {
         if (file.fieldname === fieldName) {
@@ -36,9 +38,9 @@ const configureMulter = (fieldName, allowedMimeTypes, destinationPath, filenameP
     return (0, multer_1.default)({
         storage: storage,
         limits: {
-            fileSize: fileSizeLimit
+            fileSize: fileSizeLimit,
         },
-        fileFilter: fileFilter
+        fileFilter: fileFilter,
     });
 };
 exports.default = configureMulter;

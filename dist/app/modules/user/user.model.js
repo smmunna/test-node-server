@@ -10,7 +10,7 @@ const userSchema = new mongoose_1.Schema({
     username: { type: String, required: true },
     email: { type: String },
     password: { type: String, required: true },
-    role: { type: String }
+    role: { type: String },
 });
 // Pre-save hook to hash the password
 userSchema.pre('save', function (next) {
@@ -42,4 +42,4 @@ In controller
 const user = await userModel.findOne({ username });
 const isMatch = await user.comparePassword(inputPassword);
 
-*/ 
+*/
