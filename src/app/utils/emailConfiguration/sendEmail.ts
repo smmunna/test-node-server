@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import config from '../../config';
 /**
  * Sending Email with Nodemailer
  * @param receiver -  Write recevier email address
@@ -9,12 +10,12 @@ import nodemailer from 'nodemailer';
 const sendEmail = async (receiver: any, sender: any, subject: any, message: any) => {
     try {
         const transporter = nodemailer.createTransport({
-            host: `${process.env.MAIL_HOST}`,
-            port: Number(process.env.MAIL_PORT),
+            host: `${config.mail_host}`,
+            port: Number(config.mail_port),
             secure: true,
             auth: {
-                user: `${process.env.MAIL_USERNAME}`,
-                pass: `${process.env.MAIL_PASSWORD}`,
+                user: `${config.mail_username}`,
+                pass: `${config.mail_password}`,
             },
         });
 

@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import config from "../config";
 
 // Define an interface for your JWT payload
 interface MyJwtPayload extends JwtPayload {
@@ -21,7 +22,7 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
     if (authorization && authorization?.startsWith("Bearer ")) {
         const token = authorization?.split("Bearer ")[1];
 
-        jwt.verify(token, `${process.env.ACCESS_TOKEN_SECRET}`, (err, decoded) => {
+        jwt.verify(token, `${config.jwt_secret_token}`, (err, decoded) => {
             if (err) {
                 return res.status(401).json({ message: 'Unauthorized user' });
             } else {

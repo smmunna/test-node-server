@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const nodemailer_1 = __importDefault(require("nodemailer"));
+const config_1 = __importDefault(require("../../config"));
 /**
  * Sending Email with Nodemailer
  * @param receiver -  Write recevier email address
@@ -23,12 +24,12 @@ const nodemailer_1 = __importDefault(require("nodemailer"));
 const sendEmail = (receiver, sender, subject, message) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const transporter = nodemailer_1.default.createTransport({
-            host: `${process.env.MAIL_HOST}`,
-            port: Number(process.env.MAIL_PORT),
+            host: `${config_1.default.mail_host}`,
+            port: Number(config_1.default.mail_port),
             secure: true,
             auth: {
-                user: `${process.env.MAIL_USERNAME}`,
-                pass: `${process.env.MAIL_PASSWORD}`,
+                user: `${config_1.default.mail_username}`,
+                pass: `${config_1.default.mail_password}`,
             },
         });
         const info = yield transporter.sendMail({

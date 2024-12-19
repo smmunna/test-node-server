@@ -13,6 +13,7 @@ import parsedURL from "../../lib/file/parsedUrl";
 import { photosUpload, photoUpload } from "../../utils/fileManagement/upload.config";
 import axios from "axios";
 import { deleteImageFromCloudinary } from "../../lib/cloudinary/deleteImage";
+import config from "../../config";
 
 // Create user
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -57,8 +58,8 @@ const signInUser = async (req: Request, res: Response, next: NextFunction) => {
     }
 
     // Sign in jwt token
-    const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
-    const accessExpire = process.env.JWT_ACCESS_EXPIRES_IN;
+    const accessTokenSecret = config.jwt_secret_token;
+    const accessExpire = config.jwt_expire_time;
 
     const token = jwt.sign({ user }, `${accessTokenSecret}`, {
         expiresIn: `${accessExpire}`
@@ -147,7 +148,7 @@ const fileUpload = async (req: Request, res: Response, next: NextFunction) => {
 
     //         // Convert buffer to a file path and upload to ImgBB
     //         const imgBBResponse = await imgbbUploader({
-    //             apiKey: `${process.env.IMGBB_API_KEY}`, //IMGBB API Key from ENV file
+    //             apiKey: `${config.imgbb_api_key}`, //IMGBB API Key from ENV file
     //             name: path.parse(uploadedFile.originalname).name, // Name for the image
     //             base64string: uploadedFile.buffer.toString('base64') // Convert file buffer to base64
     //         });
@@ -173,9 +174,9 @@ const fileUpload = async (req: Request, res: Response, next: NextFunction) => {
     // try {
     //     // Configure Cloudinary
     //     cloudinary.v2.config({
-    //         cloud_name: `${process.env.CLOUDINARY_CLOUD_NAME}`,
-    //         api_key: `${process.env.CLOUDINARY_API_KEY}`,
-    //         api_secret: `${process.env.CLOUDINARY_API_SECRET}`,
+    //         cloud_name: `${config.cloudinary_cloud_name}`,
+    //         api_key: `${config.cloudinary_api_key}`,
+    //         api_secret: `${config.cloudinary_api_secret}`,
     //     });
 
     //     // Use Multer middleware to handle the file upload

@@ -14,11 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteImageFromCloudinary = void 0;
 const cloudinary_1 = __importDefault(require("cloudinary"));
+const config_1 = __importDefault(require("../../config"));
 // Configure Cloudinary (can be done globally)
 cloudinary_1.default.v2.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
+    cloud_name: config_1.default.cloudinary_cloud_name,
+    api_key: config_1.default.cloudinary_api_key,
+    api_secret: config_1.default.cloudinary_api_secret,
 });
 // Function to delete an image from Cloudinary using publicId
 /**

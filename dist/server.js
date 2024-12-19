@@ -16,11 +16,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const app_1 = __importDefault(require("./app"));
 const http_1 = require("http");
+const config_1 = __importDefault(require("./app/config"));
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             // Connect to MongoDB
-            yield mongoose_1.default.connect(`${process.env.DATABASE_URL}`); // Get database url from environment variable
+            yield mongoose_1.default.connect(`${config_1.default.mongodbUrl}`); // Get database url from environment variable
             console.log('MongoDB Connected Successfully.');
             // Create the HTTP server
             const server = (0, http_1.createServer)(app_1.default);
@@ -29,9 +30,8 @@ function main() {
             //Room socket configuration, only connected rooms are broadcasting
             // roomSocketConfiguration(server)
             // Start the server
-            const PORT = process.env.PORT || 5000;
-            server.listen(PORT, () => {
-                console.log(`Server listening on port http://localhost:${PORT}`);
+            server.listen(config_1.default.port, () => {
+                console.log(`Server listening on port http://localhost:${config_1.default.port}`);
             });
         }
         catch (error) {

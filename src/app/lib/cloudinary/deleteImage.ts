@@ -1,10 +1,11 @@
 import cloudinary from 'cloudinary';
+import config from '../../config';
 
 // Configure Cloudinary (can be done globally)
 cloudinary.v2.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
+    cloud_name: config.cloudinary_cloud_name,
+    api_key: config.cloudinary_api_key,
+    api_secret: config.cloudinary_api_secret,
 });
 
 // Function to delete an image from Cloudinary using publicId

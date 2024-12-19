@@ -17,6 +17,7 @@ const user_service_1 = require("./user.service");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const user_model_1 = __importDefault(require("./user.model"));
 const sendApiResponse_1 = __importDefault(require("../../lib/ApiResponse/sendApiResponse"));
+const config_1 = __importDefault(require("../../config"));
 // Create user
 const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -53,8 +54,8 @@ const signInUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         return res.status(401).json({ message: 'Invalid email or password' });
     }
     // Sign in jwt token
-    const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
-    const accessExpire = process.env.JWT_ACCESS_EXPIRES_IN;
+    const accessTokenSecret = config_1.default.jwt_secret_token;
+    const accessExpire = config_1.default.jwt_expire_time;
     const token = jsonwebtoken_1.default.sign({ user }, `${accessTokenSecret}`, {
         expiresIn: `${accessExpire}`
     });
@@ -126,7 +127,7 @@ const fileUpload = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     //         }
     //         // Convert buffer to a file path and upload to ImgBB
     //         const imgBBResponse = await imgbbUploader({
-    //             apiKey: `${process.env.IMGBB_API_KEY}`, //IMGBB API Key from ENV file
+    //             apiKey: `${config.imgbb_api_key}`, //IMGBB API Key from ENV file
     //             name: path.parse(uploadedFile.originalname).name, // Name for the image
     //             base64string: uploadedFile.buffer.toString('base64') // Convert file buffer to base64
     //         });
@@ -147,9 +148,9 @@ const fileUpload = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     // try {
     //     // Configure Cloudinary
     //     cloudinary.v2.config({
-    //         cloud_name: `${process.env.CLOUDINARY_CLOUD_NAME}`,
-    //         api_key: `${process.env.CLOUDINARY_API_KEY}`,
-    //         api_secret: `${process.env.CLOUDINARY_API_SECRET}`,
+    //         cloud_name: `${config.cloudinary_cloud_name}`,
+    //         api_key: `${config.cloudinary_api_key}`,
+    //         api_secret: `${config.cloudinary_api_secret}`,
     //     });
     //     // Use Multer middleware to handle the file upload
     //     cloudStore.single('photo')(req, res, async (err: any) => {

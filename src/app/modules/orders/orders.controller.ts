@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import sslCommerzConfiguration from "../../utils/paymentGateway/sslCommerze/sslCommerze.config";
 import { ObjectId } from 'mongodb';
 import orderModel from "./orders.model";
+import config from "../../config";
 
 // orderPay for receiveing payments data from user and send payment gateway url
 const orderPay = async (req: Request, res: Response, next: NextFunction) => {
@@ -10,10 +11,10 @@ const orderPay = async (req: Request, res: Response, next: NextFunction) => {
         total_amount: 100,
         currency: 'BDT',
         tran_id: transaction_id, // use unique tran_id for each API call
-        success_url: `${process.env.PAYMENT_SUCCESS_URL}/${transaction_id}`,
-        fail_url: `${process.env.PAYMENT_FAIL_URL}/${transaction_id}`,
-        cancel_url: `${process.env.PAYMENT_CANCEL_URL}/${transaction_id}`,
-        ipn_url: `${process.env.PAYMENT_IPN_URL}/${transaction_id}`,
+        success_url: `${config.payment_success_url}/${transaction_id}`,
+        fail_url: `${config.payment_fail_url}/${transaction_id}`,
+        cancel_url: `${config.payment_cancel_url}/${transaction_id}`,
+        ipn_url: `${config.payment_ipn_url}/${transaction_id}`,
         shipping_method: 'Courier',
         product_name: 'Computer.',
         product_category: 'Electronic',
@@ -77,7 +78,7 @@ const success = async (req: Request, res: Response) => {
 
         // console.log('Order updated to success:', updatedOrder);
         // Redirect to Frontend success url
-        res.redirect(`${process.env.FRONTEND_SUCCESS_URL}`);
+        res.redirect(`${config.frontend_success_url}`);
 
     } catch (error) {
         res.status(500).json({ message: 'Error updating order', error });
@@ -104,7 +105,7 @@ const fail = async (req: Request, res: Response) => {
 
         // console.log('Order updated to fail:', updatedOrder);
         // Redirect to Frontend fail url
-        res.redirect(`${process.env.FRONTEND_FAIL_URL}`);
+        res.redirect(`${config.frontend_fail_url}`);
 
     } catch (error) {
         res.status(500).json({ message: 'Error updating order', error });
@@ -117,7 +118,7 @@ const cancel = async (req: Request, res: Response) => {
     const transaction_id = req.params.tranId; // get transaction id from url parameter
     // here you can save transaction id and other data in your database
     try {
-        // Update the order status to 'success'
+        // Update the order status to 'cancel'
         const updatedOrder = await orderModel.findOneAndUpdate(
             { tran_id: transaction_id },
             { status: 'cancel' },
@@ -129,8 +130,8 @@ const cancel = async (req: Request, res: Response) => {
         }
 
         // console.log('Order updated to cancel:', updatedOrder);
-        // Redirect to Frontend success url
-        res.redirect(`${process.env.FRONTEND_CANCEL_URL}`);
+        // Redirect to Frontend cancel url
+        res.redirect(`${config.frontend_cancel_url}`);
 
     } catch (error) {
         res.status(500).json({ message: 'Error updating order', error });

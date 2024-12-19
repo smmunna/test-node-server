@@ -1,9 +1,10 @@
 import paypal from 'paypal-rest-sdk';
+import config from '../../../config';
 
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
-    'client_id': `${process.env.PAYPAL_CLIENT_ID}`,
-    'client_secret': `${process.env.PAYPAL_CLIENT_SECRET}`
+    'client_id': `${config.paypal_client_id}`,
+    'client_secret': `${config.paypal_client_secret}`
 });
 
 const createPayPalPayment = (items: any, total: any, description: any) => {

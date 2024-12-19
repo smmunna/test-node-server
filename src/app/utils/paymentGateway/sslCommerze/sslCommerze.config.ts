@@ -1,8 +1,9 @@
 import SSLCommerzPayment from 'sslcommerz-lts'
+import config from '../../../config';
 
-const store_id = process.env.STORE_ID; //STORE_ID from the environment variable
-const store_passwd = process.env.STORE_PASSWORD; //STORE_PASSWORD from the environment variable
-const is_live = process.env.IS_LIVE === 'false' ? false : true; //When it will production level then it will true
+const store_id = config.ssl_storeId; //STORE_ID from the environment variable
+const store_passwd = config.ssl_password; //STORE_PASSWORD from the environment variable
+const is_live = config.ssl_isLive === 'false' ? false : true; //When it will production level then it will true
 
 /**
  * @description

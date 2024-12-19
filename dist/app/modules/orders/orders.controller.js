@@ -16,6 +16,7 @@ exports.orderController = void 0;
 const sslCommerze_config_1 = __importDefault(require("../../utils/paymentGateway/sslCommerze/sslCommerze.config"));
 const mongodb_1 = require("mongodb");
 const orders_model_1 = __importDefault(require("./orders.model"));
+const config_1 = __importDefault(require("../../config"));
 // orderPay for receiveing payments data from user and send payment gateway url
 const orderPay = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const transaction_id = new mongodb_1.ObjectId().toString(); //generate auto transaction id
@@ -23,10 +24,10 @@ const orderPay = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
         total_amount: 100,
         currency: 'BDT',
         tran_id: transaction_id, // use unique tran_id for each API call
-        success_url: `${process.env.PAYMENT_SUCCESS_URL}/${transaction_id}`,
-        fail_url: `${process.env.PAYMENT_FAIL_URL}/${transaction_id}`,
-        cancel_url: `${process.env.PAYMENT_CANCEL_URL}/${transaction_id}`,
-        ipn_url: `${process.env.PAYMENT_IPN_URL}/${transaction_id}`,
+        success_url: `${config_1.default.payment_success_url}/${transaction_id}`,
+        fail_url: `${config_1.default.payment_fail_url}/${transaction_id}`,
+        cancel_url: `${config_1.default.payment_cancel_url}/${transaction_id}`,
+        ipn_url: `${config_1.default.payment_ipn_url}/${transaction_id}`,
         shipping_method: 'Courier',
         product_name: 'Computer.',
         product_category: 'Electronic',
@@ -79,7 +80,7 @@ const success = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         // console.log('Order updated to success:', updatedOrder);
         // Redirect to Frontend success url
-        res.redirect(`${process.env.FRONTEND_SUCCESS_URL}`);
+        res.redirect(`${config_1.default.frontend_success_url}`);
     }
     catch (error) {
         res.status(500).json({ message: 'Error updating order', error });
@@ -99,7 +100,7 @@ const fail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         // console.log('Order updated to fail:', updatedOrder);
         // Redirect to Frontend fail url
-        res.redirect(`${process.env.FRONTEND_FAIL_URL}`);
+        res.redirect(`${config_1.default.frontend_fail_url}`);
     }
     catch (error) {
         res.status(500).json({ message: 'Error updating order', error });
@@ -111,14 +112,14 @@ const cancel = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const transaction_id = req.params.tranId; // get transaction id from url parameter
     // here you can save transaction id and other data in your database
     try {
-        // Update the order status to 'success'
+        // Update the order status to 'cancel'
         const updatedOrder = yield orders_model_1.default.findOneAndUpdate({ tran_id: transaction_id }, { status: 'cancel' }, { new: true });
         if (!updatedOrder) {
             return res.status(404).json({ message: 'Order not found' });
         }
         // console.log('Order updated to cancel:', updatedOrder);
-        // Redirect to Frontend success url
-        res.redirect(`${process.env.FRONTEND_CANCEL_URL}`);
+        // Redirect to Frontend cancel url
+        res.redirect(`${config_1.default.frontend_cancel_url}`);
     }
     catch (error) {
         res.status(500).json({ message: 'Error updating order', error });

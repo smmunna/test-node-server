@@ -34,7 +34,7 @@ npx node-expressx
    
 6. Goto this project directory & open `two` terminal
 ```javascript
-npx tsc --w
+npm watch
 ```
 ```javascript
 npm start

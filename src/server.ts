@@ -3,12 +3,13 @@ import mongoose from 'mongoose';
 import app from './app'
 import { createServer } from 'http';
 import { initializeSocket, roomSocketConfiguration } from './app/utils/socketIo/socketio';
+import config from './app/config';
 
 async function main() {
     try {
 
         // Connect to MongoDB
-        await mongoose.connect(`${process.env.DATABASE_URL}`) // Get database url from environment variable
+        await mongoose.connect(`${config.mongodbUrl}`) // Get database url from environment variable
         console.log('MongoDB Connected Successfully.');
 
         // Create the HTTP server
@@ -21,9 +22,8 @@ async function main() {
         // roomSocketConfiguration(server)
 
         // Start the server
-        const PORT = process.env.PORT || 5000;
-        server.listen(PORT, () => {
-            console.log(`Server listening on port http://localhost:${PORT}`);
+        server.listen(config.port, () => {
+            console.log(`Server listening on port http://localhost:${config.port}`);
         });
     } catch (error) {
         console.log(error)

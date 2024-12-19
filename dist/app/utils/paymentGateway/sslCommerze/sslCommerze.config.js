@@ -4,9 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sslcommerz_lts_1 = __importDefault(require("sslcommerz-lts"));
-const store_id = process.env.STORE_ID; //STORE_ID from the environment variable
-const store_passwd = process.env.STORE_PASSWORD; //STORE_PASSWORD from the environment variable
-const is_live = process.env.IS_LIVE === 'false' ? false : true; //When it will production level then it will true
+const config_1 = __importDefault(require("../../../config"));
+const store_id = config_1.default.ssl_storeId; //STORE_ID from the environment variable
+const store_passwd = config_1.default.ssl_password; //STORE_PASSWORD from the environment variable
+const is_live = config_1.default.ssl_isLive === 'false' ? false : true; //When it will production level then it will true
 /**
  * @description
  * @param {string} data - data will be json type

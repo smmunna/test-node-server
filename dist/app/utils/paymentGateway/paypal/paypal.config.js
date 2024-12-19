@@ -4,10 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const paypal_rest_sdk_1 = __importDefault(require("paypal-rest-sdk"));
+const config_1 = __importDefault(require("../../../config"));
 paypal_rest_sdk_1.default.configure({
     'mode': 'sandbox', //sandbox or live
-    'client_id': `${process.env.PAYPAL_CLIENT_ID}`,
-    'client_secret': `${process.env.PAYPAL_CLIENT_SECRET}`
+    'client_id': `${config_1.default.paypal_client_id}`,
+    'client_secret': `${config_1.default.paypal_client_secret}`
 });
 const createPayPalPayment = (items, total, description) => {
     return new Promise((resolve, reject) => {
