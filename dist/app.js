@@ -56,7 +56,7 @@ app.get('/', (req, res) => {
         linkedin: 'https://www.linkedin.com/in/minhazulabedinmunna/',
     });
 });
-// Route Error for any  url not found
+// Route Error for any  url not found .
 app.all('*', (req, res) => {
     res.status(404).json({
         status: 404,

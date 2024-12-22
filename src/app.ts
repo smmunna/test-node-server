@@ -63,7 +63,7 @@ app.get('/', (req: Request, res: Response) => {
     });
 });
 
-// Route Error for any  url not found
+// Route Error for any  url not found .
 app.all('*', (req: Request, res: Response) => {
     res.status(404).json({
         status: 404,

@@ -32,14 +32,11 @@ npx node-expressx
    ```
    Now select `POST` method and hit `send` button, It will successfully create a user.
    
-6. Goto this project directory & open `two` terminal
-```javascript
-npm watch
-```
+6. Goto this project directory & open terminal
 ```javascript
 npm start
 ```
-7. Now project will run in following port
+1. Now project will run in following port
 ```javascript   
 http://localhost:5000
 ```
@@ -49,6 +46,11 @@ http://localhost:5000/api/v1/
 ```
 ```javascript   
 http://localhost:5000/api/v1/users
+```
+### Instructions
+1. Create any module by this command
+```bash
+npm run create-module moduleName
 ```
 
 ### Contributor ✨
