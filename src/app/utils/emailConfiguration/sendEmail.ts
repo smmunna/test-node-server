@@ -58,6 +58,13 @@ export default sendEmail;
     } catch (error) {
         res.status(500).send("Error sending email: " + error);
     }
+
+.env file configuration
+------------------------
+MAIL_HOST=mail.abc.com
+MAIL_PORT=465
+MAIL_USERNAME=info@abc.com
+MAIL_PASSWORD=mail_password
  * 
  * 
  * */
