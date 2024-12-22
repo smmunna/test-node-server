@@ -17,7 +17,6 @@ import {
 import axios from 'axios';
 import { deleteImageFromCloudinary } from '../../lib/cloudinary/deleteImage';
 import config from '../../config';
-import sendEmail from '../../utils/emailConfiguration/sendEmail';
 
 // Create user
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
