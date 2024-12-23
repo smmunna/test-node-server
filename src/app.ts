@@ -41,7 +41,7 @@ app.use(
                 callback(new Error('Access blocked: Unauthorized access!!!'));
             }
         },
-        credentials: true, // Enable if you want to allow cookies with the request
+        credentials: true, // Enable if you want to allow cookies with the requests.
     }),
 );
 

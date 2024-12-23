@@ -40,7 +40,7 @@ app.use((0, cors_1.default)({
             callback(new Error('Access blocked: Unauthorized access!!!'));
         }
     },
-    credentials: true, // Enable if you want to allow cookies with the request
+    credentials: true, // Enable if you want to allow cookies with the requests.
 }));
 /*-------------------HANDLE ALL OF YOUR ROUTES HERE ----------------------*/
 app.use('/api/v1/users', user_route_1.userRoutes); //users routes
