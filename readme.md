@@ -78,4 +78,4 @@ npm run create-module moduleName
 <!-- prettier-ignore-end -->
 
 ### Thank you
-  2024-2025&copy; Developed by <a href="https://github.com/smmunna">smmunna</a>
+  2024--{{current_year}}&copy; Developed by <a href="https://github.com/smmunna">smmunna</a>
