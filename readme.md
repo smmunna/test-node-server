@@ -59,11 +59,10 @@ npm run create-module moduleName
 /*-------------------HANDLE ALL OF YOUR ROUTES HERE ----------------------*/
 ```
 ### Deploy 
-1. Just run the following command
+1. Just run the following command, This will generate the `dist` directory. Which you can deploy to the server.
 ```bash
 npm run build
 ```
-This will generate the `dist` directory. Which you can deploy to the server. <br>
 2. After getting the `dist` directory, you can run the following command
 ```bash
 npm run start:prod
