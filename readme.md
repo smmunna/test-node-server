@@ -58,6 +58,13 @@ npm run create-module moduleName
    you will get routes in this part, you have to remove it else you will get an error.
 /*-------------------HANDLE ALL OF YOUR ROUTES HERE ----------------------*/
 ```
+### Features
+1. File upload configured with Multer, cloudinary, imgbb
+2. Payment gateway configured with sslcommerze, paypal & stripe
+3. Organized file with modular approach (controller, service, route, interface)
+4. Socket.io configured for real time communication
+5. MongoDB configured
+6. Mail Server configured with Node Mailer
 
 ### Contributor ✨
 
