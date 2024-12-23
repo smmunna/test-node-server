@@ -24,7 +24,7 @@ async function main() {
   try {
     // Connect to MongoDB
     await mongoose.connect(`${config.mongodbUrl}`); // Get database url from environment variable
-    console.log(`${COLORS.cyan}${COLORS.bright}MongoDB Connected Successfully.`);
+    console.log(`MongoDB Connected Successfully.`);
 
     // Create the HTTP server
     const server = createServer(app);
@@ -37,7 +37,7 @@ async function main() {
 
     // Start the server
     server.listen(config.port, () => {
-      console.log(`Server listening on port ${COLORS.underscore}http://localhost:${config.port}`);
+      console.log(`Server listening on port http://localhost:${config.port}`);
     });
   } catch (error) {
     console.log(error);

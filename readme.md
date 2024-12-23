@@ -33,8 +33,8 @@ npx node-expressx
    Now select `POST` method and hit `send` button, It will successfully create a user.
    
 6. Goto this project directory & open terminal
-```javascript
-npm start
+```bash
+npm run start:dev
 ```
 1. Now project will run in following port
 ```javascript   
@@ -58,6 +58,17 @@ npm run create-module moduleName
    you will get routes in this part, you have to remove it else you will get an error.
 /*-------------------HANDLE ALL OF YOUR ROUTES HERE ----------------------*/
 ```
+### Deploy 
+1. Just run the following command
+```bash
+npm run build
+```
+This will generate the `dist` directory. Which you can deploy to the server.
+2. After getting the `dist` directory, you can run the following command
+```bash
+npm run start:prod
+```
+You can check whether your project is working perfectly for the production level or not.
 ### Features
 1. File upload configured with Multer, cloudinary, imgbb
 2. Payment gateway configured with sslcommerze, paypal & stripe

@@ -4,7 +4,9 @@
   "description": "Node.js Server Starter Template. Helps to developer setup the project within few minutes",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"nodemon dist/server.js\" \"npx tsc --watch\"",
+    "start:prod": "nodemon dist/server.js",
+    "start:dev": "nodemon src/server.ts",
+    "build": "npx tsc --outDir dist",
     "create-module": "node scripts/createModule.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -38,6 +40,7 @@
     "@types/multer": "^1.4.11",
     "@types/nodemailer": "^6.4.16",
     "@types/paypal-rest-sdk": "^1.7.9",
-    "concurrently": "^9.1.0"
+    "concurrently": "^9.1.0",
+    "ts-node": "^10.9.2"
   }
 }

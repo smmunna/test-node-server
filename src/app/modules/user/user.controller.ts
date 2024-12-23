@@ -18,7 +18,7 @@ import axios from 'axios';
 import { deleteImageFromCloudinary } from '../../lib/cloudinary/deleteImage';
 import config from '../../config';
 
-// Create user
+// Create user in this controller
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = req.body;
