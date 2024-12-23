@@ -36,7 +36,7 @@ npx node-expressx
 ```bash
 npm run start:dev
 ```
-1. Now project will run in following port
+7. Now project will run in following port
 ```javascript   
 http://localhost:5000
 ```
