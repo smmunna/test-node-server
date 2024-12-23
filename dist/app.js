@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 require("dotenv/config");
 const cors_1 = __importDefault(require("cors"));
+const helmet_1 = __importDefault(require("helmet"));
 // Import your routes here
 const user_route_1 = require("./app/modules/user/user.route");
-const helmet_1 = __importDefault(require("helmet"));
 const orders_route_1 = require("./app/modules/orders/orders.route");
 const orders_controller_1 = require("./app/modules/orders/orders.controller");
 const app = (0, express_1.default)();
@@ -22,7 +22,7 @@ app.use('/uploads', express_1.default.static('uploads'));
 /*
 Payment Gateway redirection URL success, fail and cancel
 Don't move after the cors policy, it will not work there.
-Will show the response like Access Blocked.
+Will show the response like Access Blocked. [by default sslcommerze ]
 */
 app.use('/success/:tranId', orders_controller_1.orderController.success);
 app.use('/fail/:tranId', orders_controller_1.orderController.fail);

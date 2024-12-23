@@ -1,9 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express';
 import 'dotenv/config';
 import cors from 'cors';
+import helmet from 'helmet';
 // Import your routes here
 import { userRoutes } from './app/modules/user/user.route';
-import helmet from 'helmet';
 import { orderRoutes } from './app/modules/orders/orders.route';
 import { orderController } from './app/modules/orders/orders.controller';
 
@@ -22,7 +22,7 @@ app.use('/uploads', express.static('uploads'));
 /*
 Payment Gateway redirection URL success, fail and cancel
 Don't move after the cors policy, it will not work there.
-Will show the response like Access Blocked.
+Will show the response like Access Blocked. [by default sslcommerze ]
 */
 app.use('/success/:tranId', orderController.success);
 app.use('/fail/:tranId', orderController.fail);
@@ -46,10 +46,8 @@ app.use(
 );
 
 /*-------------------HANDLE ALL OF YOUR ROUTES HERE ----------------------*/
-
 app.use('/api/v1/users', userRoutes); //users routes
 app.use('/api/v1/orders', orderRoutes); //orders routes
-
 /*-------------------HANDLE ALL OF YOUR ROUTES HERE ----------------------*/
 
 // Home route json messages
