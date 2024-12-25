@@ -37,7 +37,7 @@ async function main() {
 
     // Start the server
     server.listen(config.port, () => {
-      console.log(`Server listening on port http://localhost:${config.port}`);
+      console.log(`Server listening on port ${COLORS.blue}${COLORS.underscore}http://localhost:${config.port}`);
     });
   } catch (error) {
     console.log(error);

@@ -58,6 +58,7 @@ app.get('/', (req: Request, res: Response) => {
         author: 'Minhazul Abedin Munna',
         github: 'https://github.com/smmunna',
         linkedin: 'https://www.linkedin.com/in/minhazulabedinmunna/',
+        year: '2023-2025©',
     });
 });
 
