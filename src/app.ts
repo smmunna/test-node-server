@@ -31,7 +31,7 @@ app.use('/cancel/:tranId', orderController.cancel);
 
 // Allow only requests from a specific domain, frontend domain url eg. http://www.example.com
 const allowedDomains = [
-    'http://localhost:5174', // Default React.js frontend local domain url
+    'http://localhost:5173', // Default React.js frontend local domain url
     'http://production-domain.com'
     // You can add more domains by separating with comma.
 ];
