@@ -2,9 +2,6 @@ import express, { Request, Response, NextFunction } from 'express';
 import 'dotenv/config';
 import cors from 'cors';
 import helmet from 'helmet';
-// Import your routes here
-import { userRoutes } from './app/modules/user/user.route';
-import { orderRoutes } from './app/modules/orders/orders.route';
 import { orderController } from './app/modules/orders/orders.controller';
 import router from './app/routes';
 import config from './app/config';
