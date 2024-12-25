@@ -7,6 +7,7 @@ import { userRoutes } from './app/modules/user/user.route';
 import { orderRoutes } from './app/modules/orders/orders.route';
 import { orderController } from './app/modules/orders/orders.controller';
 import router from './app/routes';
+import config from './app/config';
 
 const app = express();
 
@@ -30,27 +31,8 @@ app.use('/success/:tranId', orderController.success);
 app.use('/fail/:tranId', orderController.fail);
 app.use('/cancel/:tranId', orderController.cancel);
 
-// Allow only requests from a specific domain, frontend domain url eg. http://www.example.com
-const allowedDomains = [
-    'http://localhost:5173', // Default React.js frontend local domain url
-    'http://production-domain.com'
-    // You can add more domains by separating with comma.
-];
-
-app.use(
-    cors({
-        origin: function (origin: any, callback) {
-            if (allowedDomains.includes(origin) || !origin) {
-                // Allow if the request is from the allowed domain or if there's no origin (e.g., from Postman)
-                callback(null, true);
-            } else {
-                // callback(new Error('Access blocked: Unauthorized access!!!'));
-                callback(new Error('Unauthorized: You do not have correct domain access.'));
-            }
-        },
-        credentials: true, // Enable if you want to allow cookies with the requests.
-    }),
-);
+// Allow only requests from a specific domain, frontend domain url eg. http://www.example.com, modify- src/app/config/index.ts
+app.use(config.corsConfig)
 
 /*-------------------HANDLE ALL OF YOUR ROUTES HERE ----------------------*/
 app.use('/api/v1', router); //Main routes
