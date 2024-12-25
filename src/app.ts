@@ -20,17 +20,22 @@ app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use('/uploads', express.static('uploads'));
 
 /*
-Payment Gateway redirection URL success, fail and cancel
+Payment Gateway redirection URL 'success, fail and cancel'
 Don't move after the cors policy, it will not work there.
-Will show the response like Access Blocked. [by default sslcommerze ]
+Because we are serving the payment gateway by using another server url (e.g. https://sslcommerze.com/api/payment)
+Will show the response like Access Blocked. [by default sslcommerze, you can use others payment gateway]
 */
 app.use('/success/:tranId', orderController.success);
 app.use('/fail/:tranId', orderController.fail);
 app.use('/cancel/:tranId', orderController.cancel);
 
 // Allow only requests from a specific domain, frontend domain url eg. http://www.example.com
-const allowedDomains = ['http://localhost:5173']; // You can add more domains by separating with comma.
-// default React.js frontend local domain url
+const allowedDomains = [
+    'http://localhost:5174', // Default React.js frontend local domain url
+    'http://production-domain.com'
+    // You can add more domains by separating with comma.
+];
+
 app.use(
     cors({
         origin: function (origin: any, callback) {
@@ -38,7 +43,8 @@ app.use(
                 // Allow if the request is from the allowed domain or if there's no origin (e.g., from Postman)
                 callback(null, true);
             } else {
-                callback(new Error('Access blocked: Unauthorized access!!!'));
+                // callback(new Error('Access blocked: Unauthorized access!!!'));
+                callback(new Error('Unauthorized: You do not have correct domain access.'));
             }
         },
         credentials: true, // Enable if you want to allow cookies with the requests.
