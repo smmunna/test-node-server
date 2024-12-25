@@ -28,7 +28,7 @@ const adminLimiter = rateLimit({
 // User Limiter
 const userLimiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute window
-  max: 1, // limit each user to 3 requests per windowMs
+  max: 3, // limit each user to 3 requests per windowMs
   message: (req: Request) => {
     return {
       status: 429,
