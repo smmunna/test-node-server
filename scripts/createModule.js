@@ -53,8 +53,8 @@ function createModule(moduleName) {
   // Add the new route to app.ts
   const appFilePath = path.join(__dirname, '..', 'src', 'app.ts');
   if (fs.existsSync(appFilePath)) {
-    const routeImport = `import { ${moduleName}Routes } from './app/modules/${moduleName}/${moduleName}.route';\n`;
-    const appUseRoute = `app.use('/api/v1/${moduleName}', ${moduleName}Routes); //${moduleName} routes\n`;
+    const routeImport = `import { ${moduleName}Routes } from './app/modules/${moduleName}/${moduleName}.route';`;
+    const appUseRoute = `app.use('/api/v1/${moduleName}', ${moduleName}Routes); //${moduleName} routes`;
 
     let appFileContent = fs.readFileSync(appFilePath, 'utf8');
 
