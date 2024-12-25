@@ -33,6 +33,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
 const getUsers = async (req: Request, res: Response, next: NextFunction) => {
   const result = await UserService.getAllUsers();
   sendApiResponse(res, 200, true, 'Users fetched successfully', result);
+  // res.send(result);
 };
 
 /**
