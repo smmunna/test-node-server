@@ -50,32 +50,32 @@ function createModule(moduleName) {
     console.log(`✅ Created file: ${filePath}`);
   });
 
-  // Add the new route to app.ts
-  const appFilePath = path.join(__dirname, '..', 'src', 'app.ts');
-  if (fs.existsSync(appFilePath)) {
-    const routeImport = `import { ${moduleName}Routes } from './app/modules/${moduleName}/${moduleName}.route';`;
-    const appUseRoute = `app.use('/api/v1/${moduleName}', ${moduleName}Routes); //${moduleName} routes`;
+  // Add the new route to src/app/routes/index.ts
+  const routesFilePath = path.join(__dirname, '..', 'src', 'app', 'routes', 'index.ts');
+  if (fs.existsSync(routesFilePath)) {
+    const routeImport = `import { ${moduleName}Routes } from "../modules/${moduleName}/${moduleName}.route";`;
+    const routeConfig = `    {\n        path: '/${moduleName}',\n        route: ${moduleName}Routes\n    },`;
 
-    let appFileContent = fs.readFileSync(appFilePath, 'utf8');
+    let routesFileContent = fs.readFileSync(routesFilePath, 'utf8');
 
-    // Add import statement
-    if (!appFileContent.includes(routeImport)) {
-      const importInsertPosition = appFileContent.indexOf('// Import your routes here') + '// Import your routes here'.length;
-      appFileContent = appFileContent.slice(0, importInsertPosition) + '\n' + routeImport + appFileContent.slice(importInsertPosition);
+    // Add the import statement
+    if (!routesFileContent.includes(routeImport)) {
+      const importInsertPosition = routesFileContent.indexOf('\n', routesFileContent.lastIndexOf('import')) + 1;
+      routesFileContent = routesFileContent.slice(0, importInsertPosition) + routeImport + '\n' + routesFileContent.slice(importInsertPosition);
     }
 
-    // Add app.use statement
-    const routePlaceholder = '/*-------------------HANDLE ALL OF YOUR ROUTES HERE ----------------------*/';
-    if (!appFileContent.includes(appUseRoute)) {
-      const routeInsertPosition = appFileContent.indexOf(routePlaceholder) + routePlaceholder.length;
-      appFileContent = appFileContent.slice(0, routeInsertPosition) + '\n' + appUseRoute + appFileContent.slice(routeInsertPosition);
+    // Add the route configuration
+    const routeArrayPlaceholder = 'const moduleRoutes = [';
+    if (!routesFileContent.includes(routeConfig)) {
+      const routeInsertPosition = routesFileContent.indexOf(routeArrayPlaceholder) + routeArrayPlaceholder.length;
+      routesFileContent = routesFileContent.slice(0, routeInsertPosition) + '\n' + routeConfig + routesFileContent.slice(routeInsertPosition);
     }
 
-    // Write updated content back to app.ts
-    fs.writeFileSync(appFilePath, appFileContent, 'utf8');
-    console.log(`✅ Updated app.ts with routes for "${moduleName}"`);
+    // Write updated content back to index.ts
+    fs.writeFileSync(routesFilePath, routesFileContent, 'utf8');
+    console.log(`✅ Updated index.ts with routes for "${moduleName}"`);
   } else {
-    console.error('❌ app.ts file not found! Could not add routes automatically.');
+    console.error('❌ routes/index.ts file not found! Could not add routes automatically.');
   }
 
   console.log(`🎉 Module "${moduleName}" created successfully!`);

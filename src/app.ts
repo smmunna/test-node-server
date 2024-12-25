@@ -6,6 +6,7 @@ import helmet from 'helmet';
 import { userRoutes } from './app/modules/user/user.route';
 import { orderRoutes } from './app/modules/orders/orders.route';
 import { orderController } from './app/modules/orders/orders.controller';
+import router from './app/routes';
 
 const app = express();
 
@@ -52,8 +53,7 @@ app.use(
 );
 
 /*-------------------HANDLE ALL OF YOUR ROUTES HERE ----------------------*/
-app.use('/api/v1/users', userRoutes); //users routes
-app.use('/api/v1/orders', orderRoutes); //orders routes
+app.use('/api/v1', router); //Main routes
 /*-------------------HANDLE ALL OF YOUR ROUTES HERE ----------------------*/
 
 // Home route json messages
