@@ -1,6 +1,7 @@
 ## Node-Express Server Starter Template
 
 ### Installation Process
+**Node Required `^18.0.0`**
 1. Run the following command
 ```javascript
 npx node-expressx
@@ -75,6 +76,7 @@ You can check whether your project is working perfectly for the production level
 4. Socket.io configured for real time communication
 5. MongoDB configured
 6. Mail Server configured with Node Mailer
+7. Query Builder configured
 
 ### Contributor ✨
 
@@ -95,4 +97,4 @@ You can check whether your project is working perfectly for the production level
 <!-- prettier-ignore-end -->
 
 ### Thank you
-  2024--2025&copy; Developed by <a href="https://github.com/smmunna">smmunna</a>
+  2024-2025&copy; Developed by <a href="https://github.com/smmunna">smmunna</a>
