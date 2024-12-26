@@ -1,3 +1,4 @@
+import QueryBuilder from '../../lib/QueryBuilder';
 import User from './user.interface';
 import userModel from './user.model';
 
@@ -9,8 +10,9 @@ const createUserToDB = async (user: User) => {
 
 // Getting all users
 const getAllUsers = async () => {
-  const users = await userModel.find({}, { password: 0, role: 0 }); //not showing password and role field
-  return users;
+  const query = { email: 'tanydx@gmail.com' }; // Match all users
+  const projection = { password: 0, role: 0 }; // Exclude password and role
+  return await QueryBuilder.Paginate(userModel, {}, projection, 1, 2, { username: -1 });
 };
 
 export const UserService = {
