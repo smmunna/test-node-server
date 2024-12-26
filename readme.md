@@ -53,18 +53,13 @@ http://localhost:5000/api/v1/users
 ```bash
 npm run create-module moduleName
 ```
-2. If you want to delete any module , just delete the module form `src/app/modules/moduleName` and also delete the route from `app.ts` file. Find this part by following the bellow comment line in `app.ts` file.
-```js
-/*-------------------HANDLE ALL OF YOUR ROUTES HERE ----------------------*/
-   you will get routes in this part, you have to remove it else you will get an error.
-/*-------------------HANDLE ALL OF YOUR ROUTES HERE ----------------------*/
-```
+2. If you want to delete any module , just delete the module form `src/app/modules/moduleName` and also delete the route from `src/app/routes/index.ts` file.
 ### Deploy 
 1. Just run the following command, This will generate the `dist` directory. Which you can deploy to the server.
 ```bash
 npm run build
 ```
-2. After getting the `dist` directory, you can run the following command
+1. After getting the `dist` directory, you can run the following command
 ```bash
 npm run start:prod
 ```
