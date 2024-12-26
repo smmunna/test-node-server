@@ -1,7 +1,7 @@
 ## Node-Express Server Starter Template
 
 ### Installation Process
-**Node Required `^18.0.0`**
+
 1. Run the following command
 ```javascript
 npx node-expressx
