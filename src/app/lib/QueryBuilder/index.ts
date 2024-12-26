@@ -127,7 +127,7 @@ class QueryBuilder {
 
     /**
    * @description
-   * Example usage: aconst activeUsers = await QueryBuilder.count(userModel, { isActive: true });
+   * Example usage: const activeUsers = await QueryBuilder.count(userModel, { isActive: true });
    * */
     static async count(model: any, query: object) {
         try {
@@ -137,6 +137,20 @@ class QueryBuilder {
             throw new Error(`Count Failed: ${error.message}`);
         }
     }
+
+    /**
+     * @description
+     * Example usage: const roles = await QueryBuilder.distinct(userModel, 'role');
+     * */
+    static async distinct(model: any, field: string, query: object = {}) {
+        try {
+            const result = await model.distinct(field, query);
+            return result;
+        } catch (error: any) {
+            throw new Error(`Distinct Query Failed: ${error.message}`);
+        }
+    }
+    
 
 
 }
