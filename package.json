@@ -8,6 +8,7 @@
     "start:dev": "nodemon src/server.ts",
     "build": "npx tsc --outDir dist",
     "create-module": "node scripts/createModule.js",
+     "delete-module": "node scripts/delete-module.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Minhazul Abedin Munna",
