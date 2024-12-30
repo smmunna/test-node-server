@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import 'dotenv/config';
 import cors from 'cors';
 import helmet from 'helmet';
+import bodyParser from 'body-parser';
 import { orderController } from './app/modules/orders/orders.controller';
 import router from './app/routes';
 import config from './app/config';
@@ -9,6 +10,8 @@ import config from './app/config';
 const app = express();
 
 app.use(express.json());
+app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 app.use(cors());
 
 // Helmet for Security purpose, hiding the 'Express' server name from Header

@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import imgbbUploader from 'imgbb-uploader';
 import cloudinary from 'cloudinary';
 import path from 'path';
+import fs from 'fs';
 import userModel from './user.model';
 import sendApiResponse from '../../lib/ApiResponse/sendApiResponse';
 import cloudStore from '../../utils/fileManagement/cloudStore';
@@ -17,6 +18,7 @@ import {
 import axios from 'axios';
 import { deleteImageFromCloudinary } from '../../lib/cloudinary/deleteImage';
 import config from '../../config';
+import { saveFile } from '../../lib/file/saveFile';
 
 // Create user in this controller
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -77,51 +79,6 @@ const signInUser = async (req: Request, res: Response, next: NextFunction) => {
 
 // File Uploading
 const fileUpload = async (req: Request, res: Response, next: NextFunction) => {
-  // ========UPLOAD FILES LOCALLY=========
-  // try {
-  //     // Handle photo upload, only single photo
-  //     photoUpload.single('photo')(req, res, async (err) => {
-  //         if (err) {
-  //             console.error('Error uploading photo:', err);
-  //             return next(err);
-  //         }
-  //         const photoPath = req.file?.path;
-  //         const photoURL = `${req.protocol}://${req.get('host')}/` + photoPath?.replace(/\\/g, "/"); //Upload file as URL: http://localhost:5000/uploads/user-1728138253070.png
-  //         if (photoURL) {
-  //             sendApiResponse(res, 200, true, 'Photo Uploaded Successfully', photoURL)
-  //         }
-  //         else {
-  //             sendApiResponse(res, 400, false, 'Error Uploading Photo')
-  //         }
-  //     })
-  // }
-  // catch (error) {
-  //     next(error)
-  // }
-  // ===========END OF UPLOAD FILES LOCALLY=========
-  // ============ UPLOAD MULTIPLE PHOTOS ============
-  // try {
-  //     // Handle multiple photo uploads
-  //     photosUpload.array('photos', 5)(req, res, async (err) => {
-  //         if (err) {
-  //             console.error('Error uploading photos:', err);
-  //             return next(err);
-  //         }
-  //         // Collect URLs for each uploaded photo
-  //         const photoURLs = (req.files as Express.Multer.File[])?.map((file) => {
-  //             const photoPath = file.path;
-  //             return `${req.protocol}://${req.get('host')}/` + photoPath.replace(/\\/g, "/");
-  //         });
-  //         if (photoURLs.length > 0) {
-  //             sendApiResponse(res, 200, true, 'Photos Uploaded Successfully', photoURLs);
-  //         } else {
-  //             sendApiResponse(res, 400, false, 'Error Uploading Photos');
-  //         }
-  //     });
-  // } catch (error) {
-  //     next(error);
-  // }
-  // ============END OF UPLOAD MULTIPLE FILE=============
   //==============Upload into ImgBB===================
   // try {
   //     // Use the Multer middleware to handle the file upload
@@ -235,6 +192,7 @@ const deleteFileData = async (req: Request, res: Response) => {
   // }
   // ==========END OF DELETE IMAGE FROM CLOUDINARY =====
 };
+
 
 // These are accessible from different files.
 export const userController = {
