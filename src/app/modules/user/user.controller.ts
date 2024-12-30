@@ -77,121 +77,7 @@ const signInUser = async (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-// File Uploading
-const fileUpload = async (req: Request, res: Response, next: NextFunction) => {
-  //==============Upload into ImgBB===================
-  // try {
-  //     // Use the Multer middleware to handle the file upload
-  //     cloudStore.single('photo')(req, res, async (err: any) => {
-  //         if (err) {
-  //             // Handle Multer error (e.g., file size exceeds limit)
-  //             return res.status(400).send(err.message);
-  //         }
-  //         // Multer has processed the file, and it can be accessed in req.file
-  //         const uploadedFile = req.file;
-  //         if (!uploadedFile) {
-  //             return res.status(400).json({ message: 'No file uploaded' });
-  //         }
-  //         // Convert buffer to a file path and upload to ImgBB
-  //         const imgBBResponse = await imgbbUploader({
-  //             apiKey: `${config.imgbb_api_key}`, //IMGBB API Key from ENV file
-  //             name: path.parse(uploadedFile.originalname).name, // Name for the image
-  //             base64string: uploadedFile.buffer.toString('base64') // Convert file buffer to base64
-  //         });
-  //         // Respond with ImgBB response
-  //         res.status(200).json({
-  //             message: 'Photo uploaded successfully to ImgBB',
-  //             data: imgBBResponse,
-  //             imgbbUrl: imgBBResponse.url, // Direct URL to the image
-  //             deleteUrl: imgBBResponse.delete_url // URL to delete the image from ImgBB
-  //         });
-  //     });
-  // } catch (error) {
-  //     console.error('Error in fileUpload controller:', error);
-  //     res.status(500).send('Internal Server Error');
-  // }
-  //==============END OF UPLOADING INTO IMGBB===================
-  //==============Upload into Cloudinary===================
-  // try {
-  //     // Configure Cloudinary
-  //     cloudinary.v2.config({
-  //         cloud_name: `${config.cloudinary_cloud_name}`,
-  //         api_key: `${config.cloudinary_api_key}`,
-  //         api_secret: `${config.cloudinary_api_secret}`,
-  //     });
-  //     // Use Multer middleware to handle the file upload
-  //     cloudStore.single('photo')(req, res, async (err: any) => {
-  //         if (err) {
-  //             // Handle Multer error (e.g., file size exceeds limit)
-  //             return res.status(400).send(err.message);
-  //         }
-  //         // Multer has processed the file, and it can be accessed in req.file
-  //         const uploadedFile = req.file;
-  //         if (!uploadedFile) {
-  //             return res.status(400).json({ message: 'No file uploaded' });
-  //         }
-  //         // Upload the image to Cloudinary
-  //         cloudinary.v2.uploader.upload_stream(
-  //             { resource_type: 'image' },
-  //             (error, result) => {
-  //                 if (error) {
-  //                     console.error('Error uploading to Cloudinary:', error);
-  //                     return res.status(500).json({ message: 'Error uploading to Cloudinary', error });
-  //                 }
-  //                 // Respond with Cloudinary response
-  //                 res.status(200).json({
-  //                     message: 'Photo uploaded successfully to Cloudinary',
-  //                     // data: result,
-  //                     imgUrl: result?.secure_url, // Direct URL to the image
-  //                     publicId: result?.public_id, // Public ID of the image in Cloudinary
-  //                 });
-  //             }
-  //         ).end(uploadedFile.buffer); // Send the file buffer to Cloudinary
-  //     });
-  // } catch (error) {
-  //     console.error('Error in fileUpload controller:', error);
-  //     res.status(500).send('Internal Server Error');
-  // }
-  //==============END OF UPLOADING INTO CLOUDINARY===================
-};
 
-// File Deleting
-const deleteFileData = async (req: Request, res: Response) => {
-  /*
-    When you want to delete any product or delete any user information with their photo or other files.
-    This deleting method will help you.
-    Just fetch the data from database then you will get photo url. just pass this url to parsedURL() method, then
-    deleteFastFile() will delete the file
-    */
-  // ===============DELETE LOCAL FILE============
-  // const path = 'http://localhost:5000/uploads/user-1728138253071.png'
-  // const urlconversion = parsedURL(path) // convert into uploads/user-1728138253071.png like this
-  // if (urlconversion) {
-  //     deleteFastFile(urlconversion) // takes the file path as parameter, uploads/user-3843.png and delete it.
-  //     sendApiResponse(res, 200, true, 'Deleted file successfully')
-  // }
-  // else {
-  //     console.log('Not Deleted, Try again later')
-  // }
-  // ===============END OF DELETING LOCAL FILE============
-  //==========DELETE IMAGE FROM CLOUDINARY============
-  // const publicId = req.query.publicId as string; // Get publicId from the query parameter
-  // if (!publicId) {
-  //     return res.status(400).json({ message: 'No public ID provided' });
-  // }
-  // try {
-  //     const result = await deleteImageFromCloudinary(publicId); // Function will delete the image
-  //     if (result.result === 'ok') {
-  //         res.status(200).json({ message: 'Image deleted successfully from Cloudinary' });
-  //     } else {
-  //         res.status(400).json({ message: 'Failed to delete image from Cloudinary', result });
-  //     }
-  // } catch (error: any) {
-  //     console.error(error);
-  //     res.status(500).json({ message: error.message });
-  // }
-  // ==========END OF DELETE IMAGE FROM CLOUDINARY =====
-};
 
 
 // These are accessible from different files.
@@ -199,6 +85,4 @@ export const userController = {
   createUser,
   getUsers,
   signInUser,
-  fileUpload,
-  deleteFileData,
 };

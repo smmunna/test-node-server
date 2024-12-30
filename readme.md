@@ -244,6 +244,29 @@ if (!allowedMimes.includes(file.mimetype)) {
   });
 }
 ```
+5. Deleting the file
+```javascript
+// File Deleting
+const deleteFileData = async (req: Request, res: Response) => {
+  /*
+    When you want to delete any product or delete any user information with their photo or other files.
+    This deleting method will help you.
+    Just fetch the data from database then you will get photo url. just pass this url to parsedURL() method, then
+    deleteFastFile() will delete the file
+    */
+  // ===============DELETE LOCAL FILE============
+  const path = 'http://localhost:5000/uploads/user-1728138253071.png'
+  const urlconversion = parsedURL(path) // convert into uploads/user-1728138253071.png like this
+  if (urlconversion) {
+      deleteFastFile(urlconversion) // takes the file path as parameter, uploads/user-3843.png and delete it.
+      sendApiResponse(res, 200, true, 'Deleted file successfully')
+  }
+  else {
+      console.log('Not Deleted, Try again later')
+  }
+  // ===============END OF DELETING LOCAL FILE============
+};
+```
 
 ### Contributor ✨
 

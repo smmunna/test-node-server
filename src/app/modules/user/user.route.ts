@@ -9,10 +9,6 @@ const router = express.Router();
 router.post('/', userController.createUser);
 router.post('/login', userController.signInUser);
 router.get('/', userController.getUsers);
-// File Management Routes
-router.post('/upload', userController.fileUpload);
-router.delete('/deletefile', userController.deleteFileData);
-
 
 // Any Redirect URL will be in app.ts file, Here redirect URL will not work
 
