@@ -8,17 +8,6 @@ import {
 } from './app/utils/socketIo/socketio';
 import config from './app/config';
 
-const COLORS = {
-  reset: '\x1b[0m',
-  bright: '\x1b[1m',
-  dim: '\x1b[2m',
-  underscore: '\x1b[4m',
-  red: '\x1b[31m',
-  green: '\x1b[32m',
-  yellow: '\x1b[33m',
-  blue: '\x1b[34m',
-  cyan: '\x1b[36m',
-};
 
 async function main() {
   try {
@@ -37,7 +26,7 @@ async function main() {
 
     // Start the server
     server.listen(config.port, () => {
-      console.log(`Server listening on port ${COLORS.blue}${COLORS.underscore}http://localhost:${config.port}`);
+      console.log(`Server listening on port http://localhost:${config.port}`);
     });
   } catch (error) {
     console.log(error);
