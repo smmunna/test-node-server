@@ -40,13 +40,14 @@ app.use('/api/v1', router); //Main routes
 
 // Home route json messages
 app.get('/', (req: Request, res: Response) => {
+    const currentYear = new Date().getFullYear();
     res.status(200).json({
         success: true,
         message: 'Welcome to Node.js Server',
         author: 'Minhazul Abedin Munna',
         github: 'https://github.com/smmunna',
         linkedin: 'https://www.linkedin.com/in/minhazulabedinmunna/',
-        year: '2023-2025©',
+        year: '2024-'+currentYear+'©',
     });
 });
 
