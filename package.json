@@ -1,6 +1,6 @@
 {
   "name": "node-server-starter",
-  "version": "2.0.2",
+  "version": "2.1.2",
   "description": "Node.js Server Starter Template. Helps to developer setup the project within few minutes",
   "main": "index.js",
   "scripts": {
