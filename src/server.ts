@@ -1,5 +1,3 @@
-//CREATE CONNECTION WITH MONGODB DATABASE
-import mongoose from 'mongoose';
 import app from './app';
 import { createServer } from 'http';
 import {
@@ -12,8 +10,7 @@ import config from './app/config';
 async function main() {
   try {
     // Connect to MongoDB
-    await mongoose.connect(`${config.mongodbUrl}`); // Get database url from environment variable
-    console.log(`MongoDB Connected Successfully.`);
+    await config.connectMongoDB();
 
     // Create the HTTP server
     const server = createServer(app);

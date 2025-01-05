@@ -2,17 +2,17 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
+import mongoose from 'mongoose';
 
 // Load environment variables
 dotenv.config({ path: path.join(process.cwd(), '.env') });
 
 const app = express();
 
-// CORS Configuration
-const allowedDomains = [
-  'http://localhost:5173', // Default React.js frontend local domain URL
-  'http://production-domain.com', // Add more domains as needed
-];
+// Parse allowed domains from .env file
+const allowedDomains = process.env.ALLOWED_DOMAINS
+  ? process.env.ALLOWED_DOMAINS.split(',').map(domain => domain.trim())
+  : []; // Default to an empty array if not defined
 
 // CORS middleware
 const corsConfig = cors({
@@ -29,13 +29,30 @@ const corsConfig = cors({
 // Use the CORS middleware
 app.use(corsConfig);
 
+
+// MongoDB Connection Function
+async function connectMongoDB() {
+  try {
+    const mongodbUrl = process.env.DATABASE_URL;
+    if (!mongodbUrl) {
+      throw new Error('DATABASE_URL is not defined in .env file.');
+    }
+    await mongoose.connect(mongodbUrl);
+    console.log('MongoDB Connected Successfully.');
+  } catch (error) {
+    console.error('Failed to connect to MongoDB:', error);
+    throw error; // the error for better handling
+  }
+}
+
+
 // Configuration Export
 export default {
   // Port Number
   port: process.env.PORT || 5000,
 
-  // MongoDB configuration
-  mongodbUrl: process.env.DATABASE_URL,
+  // mongodb connection
+  connectMongoDB,
 
   // JWT configuration
   jwt_secret_token: process.env.ACCESS_TOKEN_SECRET,
