@@ -3,7 +3,7 @@ import { Response } from 'express';
 interface ApiResponse<T> {
   success: boolean;
   message: string;
-  data?: T;
+  result?: T;
   error?: {
     code: number;
     message: string;
@@ -21,7 +21,7 @@ const sendApiResponse = <T>(
   statusCode: number,
   success: boolean,
   message: string,
-  data?: any,
+  result?: any,
 ) => {
   // Disable caching
   res.setHeader('Cache-Control', 'no-store');
@@ -30,7 +30,7 @@ const sendApiResponse = <T>(
   const response: ApiResponse<T> = {
     success,
     message,
-    data,
+    result,
   };
   return res.status(statusCode).json(response);
 };
