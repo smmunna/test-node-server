@@ -268,6 +268,27 @@ const deleteFileData = async (req: Request, res: Response) => {
 };
 ```
 
+
+### Query Building for local database
+1. Create , Read, Update and Delete
+```javascript
+// Create one data or multiple data both will works, you can use insertMany for this also.
+// Must use try catch block
+ try {
+    // Data to be inserted
+    const data = req.body;
+    // Insert the user into the 'users' collection
+    const newUser = await insertOne('users', data);
+  } catch (error) {
+  }
+
+// Finding data..
+const result = await findAll('users');
+const result = await findAll('users',{},{password:0});
+const result = await findOne('users',{id}); //based on query parameters or route parameter also
+const result = await findOne('users',{id},{password:0}); //exclude any fields
+```
+
 ### Contributor ✨
 
 <!-- prettier-ignore-start -->
