@@ -19,12 +19,13 @@ import axios from 'axios';
 import { deleteImageFromCloudinary } from '../../lib/cloudinary/deleteImage';
 import config from '../../config';
 import { saveFile } from '../../lib/file/saveFile';
+import { findAll, insertMany, insertOne, join, max, min, orderBy, paginate, search } from '../../lib/dbQuery';
 
 // Create user in this controller
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = req.body;
-    const result = await UserService.createUserToDB(user);
+    const result = await insertOne('user', user);
     sendApiResponse(res, 200, true, 'User created successfully', result);
   } catch (error) {
     next(error);
@@ -33,8 +34,13 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
 
 // Get users
 const getUsers = async (req: Request, res: Response, next: NextFunction) => {
-  const result = await UserService.getAllUsers();
-  sendApiResponse(res, 200, true, 'Users fetched successfully', result);
+  // const result = await UserService.getAllUsers();
+  try {
+    const result = await findAll('user', {}, {}, { sortField: 'age', sortOrder: 'asc' });
+    sendApiResponse(res, 200, true, 'Users fetched successfully', result);
+  } catch (error) {
+    console.log(error)
+  }
 };
 
 /**

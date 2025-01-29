@@ -284,9 +284,51 @@ const deleteFileData = async (req: Request, res: Response) => {
 
 // Finding data..
 const result = await findAll('users');
-const result = await findAll('users',{},{password:0});
+const result = await findAll('users',{name:'munna'},{password:0},{sortField:'',sortOrder:'asc'});
+
+// Example 1: Get the first page with a limit of 10 results, filtered by 'age' = 25, sorted by 'name' in ascending order
+const result = await paginate("persons", { age: 25 }, { password: 0 }, { page: 1, limit: 10, sortField: "name", sortOrder: "asc" });
+
 const result = await findOne('users',{id}); //based on query parameters or route parameter also
 const result = await findOne('users',{id},{password:0}); //exclude any fields
+
+// Aggregate Functions
+const minAge = await min("users", "age", { salary: "4000" }, { password: 0 });
+const maxSalary = await max("users", "salary", { age: "25" }, { email: 0 });
+const totalUsers = await count("users", { name: "Alice" }, { password: 0 });
+const totalSalaries = await sum("users", "salary", { age: "30" }, { phone: 0 });
+const avgSalary = await avg("users", "salary", {}, { email: 0 });
+const result = await search("users", { name: { $regex: "af" } }); //searching
+// join query
+const ordersWithProducts = await join(
+    "orders", 
+    { 
+        from: "products", 
+        localField: "product_id", 
+        foreignField: "_id", 
+        as: "orderdetails" 
+    },
+    { status: "confirmed" }, // Filter by confirmed orders
+    { "orderdetails.price": 0 } // Exclude product price
+);
+
+// Join with Paginations
+const result = await join(
+    "persons", 
+    { 
+        from: "user", 
+        localField: "age", 
+        foreignField: "age", 
+        as: "orderdetails" 
+    },
+    {}, // No query filter
+    { password: 0 }, // Exclude `password` from BOTH `persons` and `user`
+    { page: 2, limit: 5 } // **Pagination: Page 2, 5 results per page**
+);
+
+console.log(result);
+
+
 ```
 
 ### Contributor ✨
