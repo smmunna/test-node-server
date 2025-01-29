@@ -4,7 +4,7 @@
   "description": "Node.js Server Starter Template. Helps to developer setup the project within few minutes",
   "main": "index.js",
   "scripts": {
-    "start:prod": "nodemon dist/server.js",
+    "start": "nodemon dist/server.js",
     "start:dev": "nodemon src/server.ts",
     "build": "npx tsc --outDir dist",
     "create-module": "node scripts/createModule.js",
